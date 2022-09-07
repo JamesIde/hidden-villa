@@ -4,16 +4,16 @@ import { RouterModule } from '@angular/router';
 import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { LoadingComponent } from './loading/loading.component';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { ProfileComponent } from './profile/profile.component';
+import { LoadingComponent } from './loading/loading.component';
 @NgModule({
   declarations: [
     LoginComponent,
     RegisterComponent,
-    LoadingComponent,
     ProfileComponent,
+    LoadingComponent,
   ],
   imports: [
     AuthRoutingModule,
