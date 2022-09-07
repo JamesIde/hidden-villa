@@ -1,0 +1,22 @@
+<div class="w-full mx-auto h-18">
+    <div class="navbar  text-black">
+        <a class="normal-case text-xl xl:ml-[500px] lg:ml-[200px] md:ml-[100px] ">Title</a>
+        <div class="ml-auto xl:mr-[350px] md:mr-[250px] ">
+            <div>
+                <a *ngIf="isLogged">
+                    {{welcomeMessage}}
+                </a>
+            </div>
+            <a class="p-2 btn btn-ghost m-2" href="#" [routerLink]="['/']" routerLinkActive="active"
+                [routerLinkActiveOptions]={exact:true}>Home</a>
+            <a class="p-2 btn btn-ghost m-2" href="#" [routerLink]="['/login']" routerLinkActive="active"
+                *ngIf="!isLogged">Login</a>
+            <a class="p-2 btn btn-ghost m-2" href="#" [routerLink]="['/register']" routerLinkActive="active"
+                *ngIf="!isLogged">Register</a>
+            <a class="p-2 btn btn-ghost m-2" href="#" (click)="onLogout()" routerLinkActive="active"
+                *ngIf="isLogged">Logout</a>
+            <a class="p-2 btn btn-ghost m-2" href="#" [routerLink]="['/profile']" routerLinkActive="active">Profile</a>
+
+        </div>
+    </div>
+</div>

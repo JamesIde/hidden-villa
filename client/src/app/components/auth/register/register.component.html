@@ -1,0 +1,106 @@
+<div class="mx-auto xl:w-1/4 md:w-2/4 w-3/4 p-2 xl:pl-2 md:pl-4 pl-2 align-middle">
+    <div class="py-12">
+        <h2 class="text-2xl font-bold mb-2">
+            Register
+        </h2>
+        <div class="grid grid-cols-1 gap-6">
+            <div *ngIf="isLoading" class="text-center">
+                <app-loading></app-loading>
+            </div>
+            <div *ngIf="isError">
+                {{error}}
+            </div>
+            <form [formGroup]="registerForm" (ngSubmit)="handleSubmit()">
+                <label class="block">
+                    <span class="text-gray-700">Name</span>
+                    <input type="email" class="
+          mt-0
+          block
+          w-full
+          px-0.5
+          border-0 border-b-2 border-gray-200
+          focus:ring-0 focus:border-black
+        " placeholder="" formControlName="name" />
+                </label>
+                <div *ngIf="registerForm.get('name').invalid && registerForm.get('name').touched">
+                    <span class="text-sm text-gray-500">
+                        This field is required
+                    </span>
+                </div>
+                <label class="block">
+                    <span class="text-gray-700">Email</span>
+                    <input type="email" class="
+          mt-0
+          block
+          w-full
+          px-0.5
+          border-0 border-b-2 border-gray-200
+          focus:ring-0 focus:border-black
+        " placeholder="" formControlName="email" />
+                </label>
+                <div *ngIf="registerForm.get('email').invalid && registerForm.get('email').touched">
+                    <span class="text-sm text-gray-500">
+                        This field is required
+                    </span>
+                </div>
+                <div formGroupName="passwordGroup">
+
+
+                    <label class="block">
+                        <span class="text-gray-700">Password</span>
+                        <input type="password" class="
+          mt-0
+          block
+          w-full
+          px-0.5
+          border-0 border-b-2 border-gray-200
+          focus:ring-0 focus:border-black
+        " placeholder="" formControlName="password" />
+                    </label>
+                    <div
+                        *ngIf="registerForm.get('passwordGroup.password').invalid && registerForm.get('passwordGroup.password').touched">
+                        <span class="text-sm text-gray-500">
+                            This field is required and must be minimum 6 characters
+                        </span>
+                    </div>
+                    <label class="block">
+                        <span class="text-gray-700">Confirm Password</span>
+                        <input type="password" class="
+          mt-0
+          block
+          w-full
+          px-0.5
+          border-0 border-b-2 border-gray-200
+          focus:ring-0 focus:border-black
+        " placeholder="" formControlName="confirmPassword" />
+                    </label>
+                </div>
+                <div
+                    *ngIf="registerForm.get('passwordGroup.confirmPassword').invalid && registerForm.get('passwordGroup.confirmPassword').touched">
+                    <span class="text-sm text-gray-500">
+                        This field is required and must be minimum 6 characters
+                    </span>
+                </div>
+                <div *ngIf="registerForm.errors?.['notmatched'] && registerForm.errors?.['notmatched']">
+                    <span>
+                        Passwords don't match
+                    </span>
+                </div>
+                <div class="text-center">
+                    <button type="submit"
+                        class=" bg-purple-500 p-2 pl-20 pr-20 mt-2 mb-3 w-full text-white font-bold w-max-md  rounded hover:bg-purple-800 duration-500 ">
+                        Register
+                    </button>
+                    <p class="text-center">
+                        Don't have an account?
+                    </p>
+                    <button type="submit"
+                        class=" bg-purple-900 pl-20 pr-20 p-2 w-full mt-3 text-white font-bold w-max-md  rounded hover:cursor-pointer hover:bg-purple-500 duration-500"
+                        [routerLink]="['/login']">
+                        LOGIN
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="row">
+        <div *ngIf="isLoading">
+
+        </div>
+        <div *ngIf="userProfile">
+            <h5>
+                {{userProfile.name}} | {{userProfile._id}}
+            </h5>
+            <p>
+                {{userProfile.email}}
+            </p>
+        </div>
+        <div *ngIf="isError">
+            {{error}}
+        </div>
+    </div>
+</div>
