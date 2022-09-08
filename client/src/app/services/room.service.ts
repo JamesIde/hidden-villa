@@ -22,6 +22,7 @@ export class RoomService {
   readonly API_URL = 'http://localhost:5000';
   bookingInfo = new BehaviorSubject<BookingInfo>(null);
   availableRooms = new BehaviorSubject<HotelRoom[]>(null);
+  selectedRoom = new BehaviorSubject<HotelRoom>(null);
 
   storeBookingInformation(form: FormGroup) {
     const dates: BookingInfo = {
@@ -42,6 +43,15 @@ export class RoomService {
         return throwError(() => err);
       }),
       tap((rooms) => this.availableRooms.next(rooms))
+    );
+  }
+  getRoom(id: number) {
+    return this.http.get<HotelRoom>(`${this.API_URL}/api/hotels/${id}`).pipe(
+      catchError((err) => {
+        console.log('Handling error locally and rethrowing it...', err);
+        return throwError(() => err);
+      }),
+      tap((room) => this.selectedRoom.next(room))
     );
   }
 }

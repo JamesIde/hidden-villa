@@ -17,7 +17,6 @@ export class AvailableRoomResolver implements Resolve<HotelRoom[]> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): HotelRoom[] | Observable<HotelRoom[]> | Promise<HotelRoom[]> {
-    console.log('getting rooms resolver');
     return this.roomService.getallRooms();
   }
 }
