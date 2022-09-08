@@ -5,6 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "ts-node --files index/index.ts",
+    "ci-build": "npx tsc",
     "watch": "tsc --watch",
     "dev": "concurrently \"npm run start\" \"npm run watch\""
   },

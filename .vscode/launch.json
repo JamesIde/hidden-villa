@@ -7,13 +7,13 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
-            "program": "${workspaceFolder}/server/index.ts",
+            "name": "Build Project",
+            "program": "${workspaceFolder}/server/index/index.ts",
+            
             "sourceMaps": true,
-            "trace": "all",
-            "outFiles": [
-                "${workspaceFolder}/dist/**/*.js"
-            ]
+            "smartStep": true,
+            "internalConsoleOptions": "openOnSessionStart",
+            "outFiles": ["${workspaceFolder}/server/dist/**/*.js"]
         }
     ]
 }

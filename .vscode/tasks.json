@@ -1,0 +1,14 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "ci-build",
+			"path": "server",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "npm: ci-build - server",
+			"detail": "npx tsc"
+		}
+	]
+}
