@@ -1,5 +1,5 @@
 export interface HotelModel {
-  // roomId: number
+  roomId?: number
   name: string
   price: number
   description: string
@@ -9,7 +9,7 @@ export interface HotelModel {
 }
 
 export interface Image {
-  // id: number
+  id?: number
   url: string
   hotelRoomId: number
   hotelRoom: HotelModel

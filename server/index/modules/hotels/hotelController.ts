@@ -6,6 +6,10 @@ const getHotelRooms = asyncHandler(async (req: Request, res: Response) => {
   return await hotelService.getHotelRooms(req, res)
 })
 
+const getHotelRoom = asyncHandler(async (req: Request, res: Response) => {
+  return await hotelService.getHotelRoom(req, res)
+})
+
 const addHotelRoom = asyncHandler(async (req: Request, res: Response) => {
   return await hotelService.addHotelRoom(req, res)
 })
@@ -16,6 +20,7 @@ const deleteHotelRoom = asyncHandler(async (req: Request, res: Response) => {
 
 const hotelController = {
   getHotelRooms,
+  getHotelRoom,
   addHotelRoom,
   deleteHotelRoom,
 }

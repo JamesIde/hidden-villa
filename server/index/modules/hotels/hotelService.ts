@@ -15,6 +15,39 @@ const getHotelRooms = async (req: Request, res: Response) => {
   res.status(200).json(hotelRooms)
 }
 
+// Get single hotel room
+// GET /api/hotels/singleHotel/:id
+// Public
+const getHotelRoom = async (req: Request, res: Response) => {
+  const { id } = req.params
+  if (!id) {
+    res.status(400).json({ message: "Please provide an ID!" })
+  }
+  try {
+    const hotelRoom = await prisma.hotelRoom.findUnique({
+      where: {
+        roomId: parseInt(id),
+      },
+      include: {
+        images: true,
+      },
+    })
+
+    if (!hotelRoom) {
+      res.status(404).json({ message: "Hotel room not found" })
+    }
+
+    res.status(200).json(hotelRoom)
+  } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      res.status(400).json({ error: error.message })
+    } else {
+      res.status(500).json({ error: error })
+    }
+    console.log(error)
+  }
+}
+
 // Add hotel rooms
 // POST /api/hotels
 // Public
@@ -97,6 +130,7 @@ const deleteHotelRoom = async (req: Request, res: Response) => {
 
 const hotelService = {
   getHotelRooms,
+  getHotelRoom,
   addHotelRoom,
   deleteHotelRoom,
 }
