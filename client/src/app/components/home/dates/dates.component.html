@@ -1,1 +1,33 @@
-<p>dates works!</p>
+<section id="date-picker">
+    <form [formGroup]="datePickerForm" (ngSubmit)="handleSubmit()">
+        <div class="w-max mx-auto">
+            <div class="flex flex-row gap-2">
+                <div class="w-max">
+                    <mat-form-field appearance="fill">
+                        <mat-label class="text-md">Enter your dates</mat-label>
+                        <mat-date-range-input [rangePicker]="picker">
+                            <input matStartDate placeholder="Start date" [min]="minDate" [max]="maxDate"
+                                formControlName="checkIn">
+                            <input matEndDate placeholder="End date" [min]="minDate" [max]="maxDate"
+                                formControlName="checkOut">
+                        </mat-date-range-input>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker></mat-date-range-picker>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field class="example-form-field" appearance="fill">
+                        <mat-label>Number of Guests</mat-label>
+                        <!-- Bind value [(ngModel)]="value" -->
+                        <input matInput type="number" formControlName="NoGuests">
+
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="text-center">
+                <button mat-raised-button color="primary" type="submit" [disabled]="datePickerForm.invalid">Check
+                    Availability</button>
+            </div>
+        </div>
+    </form>
+</section>

@@ -8,7 +8,7 @@ import {
   HttpClient,
 } from '@angular/common/http';
 import { catchError, Observable, switchMap, throwError } from 'rxjs';
-import { APIService } from 'src/app/shared/API.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 interface AccessResponse {
   ok: boolean;
@@ -20,12 +20,12 @@ export class AuthInterceptor implements HttpInterceptor {
   readonly REFRESH_URL = 'http://localhost:5000/api/auth/refreshAccessToken';
   isAccessValid = false;
 
-  constructor(private http: HttpClient, private APIService: APIService) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    const accessToken = this.APIService.getAccessToken();
+    const accessToken = this.authService.getAccessToken();
 
     if (accessToken) {
       const req = request.clone({
@@ -45,7 +45,7 @@ export class AuthInterceptor implements HttpInterceptor {
               .pipe(
                 switchMap((res) => {
                   console.log('NEW TOKEN ->', res.accessToken);
-                  this.APIService.setAccessToken(res.accessToken);
+                  this.authService.setAccessToken(res.accessToken);
                   return next.handle(
                     request.clone({
                       setHeaders: {

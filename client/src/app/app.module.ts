@@ -6,21 +6,42 @@ import { HeaderComponent } from './components/auth/header/header.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { APIService } from './shared/API.service';
+import { AuthService } from './services/auth.service';
 import { AuthInterceptor } from './components/auth/auth.interceptor';
 import { AuthModule } from './components/auth/auth.module';
 import { IndexComponent } from './components/home/index/index.component';
+import { DatesComponent } from './components/home/dates/dates.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { RoomsComponent } from './components/hotelRoom/rooms/rooms.component';
+import { HotelRoomModule } from './components/hotelRoom/hotelRoom.module';
+import { RoomService } from './services/room.service';
+
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, IndexComponent],
+  declarations: [AppComponent, HeaderComponent, IndexComponent, DatesComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     AuthModule,
+    HotelRoomModule,
     ReactiveFormsModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
+    MatInputModule,
+    BrowserAnimationsModule,
+    MatIconModule,
+    MatButtonModule,
   ],
   providers: [
-    APIService,
+    AuthService,
+    RoomService,
     // TodoResolverService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],

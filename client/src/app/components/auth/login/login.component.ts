@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { APIService } from 'src/app/shared/API.service';
-import { LoginUser, User } from '../userModel';
+import { AuthService } from 'src/app/services/auth.service';
+import { LoginUser, User } from '../../../shared/userModel';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   isError = false;
   error!: string;
 
-  constructor(private apiService: APIService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.userForm = new FormGroup({
@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
     };
     // Call the login service
 
-    this.apiService.loginUser(user).subscribe(
+    this.authService.loginUser(user).subscribe(
       (data) => {
         console.log(data);
         this.isLoading = false;

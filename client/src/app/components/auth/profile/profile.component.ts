@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { APIService } from 'src/app/shared/API.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -7,7 +7,7 @@ import { APIService } from 'src/app/shared/API.service';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
-  constructor(private APIService: APIService) {}
+  constructor(private authService: AuthService) {}
   isLoading = false;
   userProfile;
   isError = false;
@@ -15,7 +15,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.APIService.getProfile().subscribe(
+    this.authService.getProfile().subscribe(
       (res) => {
         this.userProfile = res;
         this.isLoading = false;

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { APIService } from './shared/API.service';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -7,9 +7,9 @@ import { APIService } from './shared/API.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  constructor(private APIService: APIService) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {
-    this.APIService.autologin();
+    this.authService.autologin();
   }
 }

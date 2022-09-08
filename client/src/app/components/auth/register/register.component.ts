@@ -8,14 +8,14 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { APIService } from 'src/app/shared/API.service';
+import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
-  constructor(private APIService: APIService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {}
   registerForm!: FormGroup;
   isLoading = false;
   isError = false;
@@ -48,7 +48,7 @@ export class RegisterComponent implements OnInit {
       password: this.registerForm.value.password,
       password2: this.registerForm.value.confirmPassword,
     };
-    this.APIService.registerUser(userData).subscribe(
+    this.authService.registerUser(userData).subscribe(
       (user) => {
         this.isLoading = false;
         console.log('Registered');

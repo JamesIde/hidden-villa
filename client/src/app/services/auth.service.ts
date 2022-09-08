@@ -1,11 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {
-  Todo,
-  User,
-  LoginUser,
-  RegisterUser,
-} from '../components/auth/userModel';
+import { Todo, User, LoginUser, RegisterUser } from '../shared/userModel';
 import {
   BehaviorSubject,
   catchError,
@@ -20,7 +15,7 @@ import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root',
 })
-export class APIService {
+export class AuthService {
   // Set up subscriber to propagate data to the component who subscribe to it.
   todoSub = new Subject<Todo[]>();
   token = new BehaviorSubject<string>(null);
@@ -29,17 +24,6 @@ export class APIService {
   readonly API_URL = 'https://jsonplaceholder.typicode.com/todos';
 
   readonly BACKEND_URL = 'http://localhost:5000';
-
-  fetchTodos() {
-    return this.http.get<Todo[]>(this.API_URL).pipe(
-      map((user) => {
-        return user.slice(0, 10);
-      }),
-      tap((user) => {
-        this.todoSub.next(user);
-      })
-    );
-  }
 
   loginUser(user: LoginUser): Observable<User> {
     const strUser = qs.stringify(user);
@@ -107,7 +91,7 @@ export class APIService {
       );
   }
 
-  // elper function to get the user from local storage
+  // Helper function to get the user from local storage
   // It then 'nexts' the user if present to all subscribing components
   autologin() {
     const token = localStorage.getItem('token');
@@ -146,6 +130,8 @@ export class APIService {
       })
     );
   }
+
+  // Used for HTTP Interceptors
 
   getAccessToken(): string {
     return this.token.value;

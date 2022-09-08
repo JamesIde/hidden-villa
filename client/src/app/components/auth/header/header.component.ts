@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { APIService } from '../../../shared/API.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   template: '',
@@ -9,7 +9,7 @@ import { APIService } from '../../../shared/API.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  constructor(private authService: APIService) {}
+  constructor(private authService: AuthService) {}
 
   // Subscription to our logged in user from API Service
   userSubscription!: Subscription;
