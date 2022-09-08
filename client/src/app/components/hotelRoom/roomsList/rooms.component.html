@@ -1,0 +1,6 @@
+<div *ngIf="isLoading">
+    <!-- <app-loading></app-loading> -->
+</div>
+<div *ngFor="let room of rooms">
+    <app-room [room]="room"></app-room>
+</div>

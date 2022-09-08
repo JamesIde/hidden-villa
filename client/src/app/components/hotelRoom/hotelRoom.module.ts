@@ -8,11 +8,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { RoomService } from 'src/app/services/room.service';
+import { LoadingComponent } from '../auth/loading/loading.component';
 import { HotelRoomRoutingModule } from './hotelRoom-routing.module';
-import { RoomsComponent } from './rooms/rooms.component';
+import { RoomsComponent } from './roomsList/rooms.component';
+import { RoomComponent } from './room/room.component';
 
 @NgModule({
-  declarations: [RoomsComponent],
+  declarations: [RoomsComponent, RoomComponent],
   imports: [
     HotelRoomRoutingModule,
     RouterModule,

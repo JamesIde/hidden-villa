@@ -18,7 +18,7 @@ import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { RoomsComponent } from './components/hotelRoom/rooms/rooms.component';
+import { RoomsComponent } from './components/hotelRoom/roomsList/rooms.component';
 import { HotelRoomModule } from './components/hotelRoom/hotelRoom.module';
 import { RoomService } from './services/room.service';
 
