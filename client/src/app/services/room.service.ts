@@ -28,7 +28,7 @@ export class RoomService {
     const dates: BookingInfo = {
       // YYYY-MM-DD & Number
       checkIn: form.value.checkIn.toISOString().split('T')[0],
-      checkout: form.value.checkOut.toISOString().split('T')[0],
+      checkOut: form.value.checkOut.toISOString().split('T')[0],
       NoGuests: form.value.NoGuests,
     };
     this.bookingInfo.next(dates);
