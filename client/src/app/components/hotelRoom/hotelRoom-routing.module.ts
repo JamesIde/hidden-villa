@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoadRoomResolver } from 'src/app/services/singleRoomResolver.service';
-import { AvailableRoomResolver } from 'src/app/services/allRoomsResolver.service';
-import { RoomPageComponent } from './roomPage/roomPage.component';
+import { LoadRoomResolver } from 'src/app/services/resolvers/singleRoomResolver.service';
+import { AvailableRoomResolver } from 'src/app/services/resolvers/allRoomsResolver.service';
 import { RoomsComponent } from './roomsList/rooms.component';
+import { BookRoomComponent } from './book-room/bookRoom.component';
 
 const routes: Routes = [
   {
@@ -13,7 +13,7 @@ const routes: Routes = [
   },
   {
     path: 'room/:id',
-    component: RoomPageComponent,
+    component: BookRoomComponent,
     resolve: [LoadRoomResolver],
   },
 ];

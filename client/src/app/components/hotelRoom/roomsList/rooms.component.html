@@ -1,6 +1,28 @@
 <div *ngIf="isLoading">
-    <!-- <app-loading></app-loading> -->
+  <!-- <app-loading></app-loading> -->
+</div>
+<div class="w-2/4 mx-auto p-2 text-center text-md">
+  <!-- <p>{{ rooms.length }} rooms found</p> -->
+  <p>
+    You selected
+    <span class="font-bold">
+      {{ bookingInfo.checkIn | date: "dd/MM/yyyy" }}
+    </span>
+    to
+    <span class="font-bold">
+      {{ bookingInfo.checkout | date: "dd/MM/yyyy" }}
+    </span>
+    for {{ bookingInfo.NoGuests }}
+    {{ bookingInfo.NoGuests > 1 ? "people" : "person" }}
+  </p>
+</div>
+<div class="text-center mx-auto">
+  <p>
+    <!-- Rooms Found -->
+    We found <span class="font-bold"> {{ rooms.length }} rooms </span> that
+    match your dates
+  </p>
 </div>
 <div *ngFor="let room of rooms">
-    <app-room [room]="room"></app-room>
+  <app-room [room]="room"></app-room>
 </div>

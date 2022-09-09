@@ -5,8 +5,8 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { HotelRoom } from '../shared/HotelInfoModel';
-import { RoomService } from './room.service';
+import { HotelRoom } from '../../shared/HotelInfoModel';
+import { RoomService } from '../room.service';
 
 @Injectable({
   providedIn: 'root',

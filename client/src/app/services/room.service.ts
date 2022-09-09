@@ -18,7 +18,7 @@ import { BookingInfo, HotelRoom } from '../shared/HotelInfoModel';
 })
 export class RoomService {
   constructor(private http: HttpClient) {}
-  // TODO move to constants
+
   readonly API_URL = 'http://localhost:5000';
   bookingInfo = new BehaviorSubject<BookingInfo>(null);
   availableRooms = new BehaviorSubject<HotelRoom[]>(null);
@@ -42,10 +42,13 @@ export class RoomService {
         console.log('Handling error locally and rethrowing it...', err);
         return throwError(() => err);
       }),
-      tap((rooms) => this.availableRooms.next(rooms))
+      tap((rooms) => {
+        this.availableRooms.next(rooms);
+        console.log('Rooms tapped', rooms);
+      })
     );
   }
-  getRoom(id: number) {
+  bookRoom(id: number) {
     return this.http.get<HotelRoom>(`${this.API_URL}/api/hotels/${id}`).pipe(
       catchError((err) => {
         console.log('Handling error locally and rethrowing it...', err);

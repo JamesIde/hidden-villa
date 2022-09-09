@@ -9,14 +9,14 @@ export interface HotelRoom {
   name: string;
   price: number;
   description: string;
-  numbeOfBeds: string;
+  numberOfBeds: string;
   maxGuests: number;
   images: Image[];
 }
 
 export interface Image {
   id?: number;
-  url: string;
+  image: string;
   hotelRoomId: number;
   hotelRoom: HotelRoom;
 }

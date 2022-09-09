@@ -8,7 +8,7 @@ import { RoomService } from 'src/app/services/room.service';
   styleUrls: ['./dates.component.css'],
 })
 
-// TODO Fix date min and max
+// TODO Fix date min and max on form
 export class DatesComponent implements OnInit {
   minDate: Date;
   maxDate: Date;

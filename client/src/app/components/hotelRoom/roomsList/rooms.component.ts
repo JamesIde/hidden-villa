@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { RoomService } from 'src/app/services/room.service';
-import { HotelRoom } from 'src/app/shared/HotelInfoModel';
+import { BookingInfo, HotelRoom } from 'src/app/shared/HotelInfoModel';
 
 @Component({
   selector: 'app-rooms',
@@ -12,6 +12,7 @@ export class RoomsComponent implements OnInit, OnDestroy {
   constructor(private roomService: RoomService) {}
   bookingSubscription!: Subscription;
   roomSubscription!: Subscription;
+  bookingInfo!: BookingInfo;
   rooms!: HotelRoom[];
   isError!: boolean;
   isLoading = false;
@@ -21,7 +22,9 @@ export class RoomsComponent implements OnInit, OnDestroy {
     // Access booking info
     this.bookingSubscription = this.roomService.bookingInfo.subscribe(
       (data) => {
-        console.log('booking (data not used yet): ', data);
+        this.bookingInfo = data
+          ? data
+          : JSON.parse(localStorage.getItem('booking'));
       }
     );
     // Access available rooms

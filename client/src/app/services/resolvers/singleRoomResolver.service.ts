@@ -5,8 +5,8 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { HotelRoom } from '../shared/HotelInfoModel';
-import { RoomService } from './room.service';
+import { HotelRoom } from '../../shared/HotelInfoModel';
+import { RoomService } from '../room.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +18,6 @@ export class LoadRoomResolver implements Resolve<HotelRoom> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): HotelRoom | Observable<HotelRoom> | Promise<HotelRoom> {
-    return this.roomService.getRoom(route.params['id'] as number);
+    return this.roomService.bookRoom(route.params['id'] as number);
   }
 }

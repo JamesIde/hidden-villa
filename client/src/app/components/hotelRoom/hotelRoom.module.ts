@@ -12,10 +12,9 @@ import { LoadingComponent } from '../auth/loading/loading.component';
 import { HotelRoomRoutingModule } from './hotelRoom-routing.module';
 import { RoomsComponent } from './roomsList/rooms.component';
 import { RoomComponent } from './room/room.component';
-import { RoomPageComponent } from './roomPage/roomPage.component';
-
+import { BookRoomComponent } from './book-room/bookRoom.component';
 @NgModule({
-  declarations: [RoomsComponent, RoomComponent, RoomPageComponent],
+  declarations: [RoomsComponent, RoomComponent, BookRoomComponent],
   imports: [
     HotelRoomRoutingModule,
     RouterModule,
