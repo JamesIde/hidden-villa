@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoadRoomResolver } from 'src/app/services/resolvers/singleRoomResolver.service';
 import { AvailableRoomResolver } from 'src/app/services/resolvers/allRoomsResolver.service';
 import { RoomsComponent } from './roomsList/rooms.component';
-import { BookRoomComponent } from './book-room/bookRoom.component';
+import { BookRoomComponent } from './bookRoom/bookRoom.component';
 
 const routes: Routes = [
   {

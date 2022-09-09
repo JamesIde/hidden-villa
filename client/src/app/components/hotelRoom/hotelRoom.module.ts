@@ -12,7 +12,7 @@ import { LoadingComponent } from '../auth/loading/loading.component';
 import { HotelRoomRoutingModule } from './hotelRoom-routing.module';
 import { RoomsComponent } from './roomsList/rooms.component';
 import { RoomComponent } from './room/room.component';
-import { BookRoomComponent } from './book-room/bookRoom.component';
+import { BookRoomComponent } from './bookRoom/bookRoom.component';
 @NgModule({
   declarations: [RoomsComponent, RoomComponent, BookRoomComponent],
   imports: [
