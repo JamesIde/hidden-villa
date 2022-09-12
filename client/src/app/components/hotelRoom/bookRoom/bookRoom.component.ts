@@ -2,11 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { RoomService } from 'src/app/services/room.service';
-import {
-  BookingInfo,
-  HotelRoom,
-  OrderInfo,
-} from 'src/app/shared/HotelInfoModel';
+import { BookingInfo, HotelRoom, Booking } from 'src/app/shared/hotelModel';
 
 @Component({
   selector: 'app-book-room',
@@ -17,31 +13,47 @@ export class BookRoomComponent implements OnInit {
   constructor(private roomService: RoomService) {}
   // Subscriptions
   selectedRoom!: Subscription;
-  selectedDates!: Subscription;
+  bookingOrder!: Subscription;
   // Local state
   roomDetails!: HotelRoom;
   dateDetails!: BookingInfo;
-  orderDetails!: {
-    duration: number;
-    cost: number;
-    totalCost: number;
-  };
+  totalCost!: number;
   // Contact Info form
   userInfo!: FormGroup;
 
-  // Booking
-  handleBookingSubmit() {}
+  // Booking method
+  handleBookingSubmit() {
+    let booking: Booking = {
+      firstName: this.userInfo.value.firstName,
+      lastName: this.userInfo.value.lastName,
+      email: this.userInfo.value.email,
+      phone: this.userInfo.value.phone,
+      checkIn: this.dateDetails.checkIn,
+      checkOut: this.dateDetails.checkOut,
+      duration: this.dateDetails.duration,
+      roomId: this.roomDetails.roomId,
+      roomName: this.roomDetails.name,
+      roomPrice: this.roomDetails.price,
+      totalCost: this.totalCost,
+      NoGuests: this.roomDetails.maxGuests,
+    };
+    console.log('Booking: ', booking);
+  }
 
   ngOnInit(): void {
     // Subscribe to selected room
     this.selectedRoom = this.roomService.selectedRoom.subscribe((room) => {
-      console.log('Selected Room: ', room);
       this.roomDetails = room;
     });
-    // Subscribe to user selected dates
-    this.selectedDates = this.roomService.bookingInfo.subscribe((dates) => {
-      console.log('Date details: ', dates);
-      this.dateDetails = dates;
+    // Subscribe to get booking information
+    this.bookingOrder = this.roomService.bookingInfo.subscribe((dates) => {
+      // CheckIn, out, duration
+      this.dateDetails = dates ? dates : this.roomService.getBooking();
+      // Total cost
+      this.totalCost = this.roomService.calculateTotalCost(
+        this.dateDetails.duration,
+        this.roomDetails.price
+      );
     });
     // Initialise the form
     this.userInfo = new FormGroup({
@@ -58,23 +70,5 @@ export class BookRoomComponent implements OnInit {
         validators: [Validators.required],
       }),
     });
-    // Calculate the duration
-    this.calculateDuration();
-    // Calculate the total price
-  }
-
-  // Calculate the duration
-  calculateDuration(): void {
-    const checkIn = new Date(this.dateDetails.checkIn);
-    const checkOut = new Date(this.dateDetails.checkOut);
-    const duration = checkOut.getTime() - checkIn.getTime();
-    console.log(duration / (1000 * 3600 * 24));
-    this.orderDetails.duration = duration / (1000 * 3600 * 24);
-    console.log(this.orderDetails.duration);
-  }
-  // Calculate the total cost
-  calculateTotalCost(): void {
-    this.orderDetails.totalCost =
-      this.roomDetails.price * this.orderDetails.duration;
   }
 }

@@ -111,6 +111,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('booking');
     this.token.next(null);
     this.router.navigate(['/']);
   }

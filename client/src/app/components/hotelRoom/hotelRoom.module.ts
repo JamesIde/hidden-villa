@@ -13,14 +13,21 @@ import { HotelRoomRoutingModule } from './hotelRoom-routing.module';
 import { RoomsComponent } from './roomsList/rooms.component';
 import { RoomComponent } from './room/room.component';
 import { BookRoomComponent } from './bookRoom/bookRoom.component';
+import { MatButtonModule } from '@angular/material/button';
 @NgModule({
-  declarations: [RoomsComponent, RoomComponent, BookRoomComponent],
+  declarations: [
+    RoomsComponent,
+    RoomComponent,
+    BookRoomComponent,
+    LoadingComponent,
+  ],
   imports: [
     HotelRoomRoutingModule,
     RouterModule,
     ReactiveFormsModule,
     CommonModule,
     BrowserModule,
+    MatButtonModule,
   ],
   providers: [RoomService],
 })

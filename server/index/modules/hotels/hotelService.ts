@@ -137,4 +137,4 @@ const hotelService = {
 
 export = hotelService
 
-// TODO - Update a hotel
+// TODO - Update a hotel. Low priority, probably as part of admin panel.

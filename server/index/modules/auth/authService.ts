@@ -152,7 +152,7 @@ const refreshAccessToken = async (req: Request, res: Response) => {
   let payload: any
 
   try {
-    payload = jwt.verify(token, process.env.REFRESH_SECRET as string) as any
+    payload = jwt.verify(token, process.env.REFRESH_SECRET as string) as any // TODO Fix this
     console.log("payload", payload)
   } catch (error: any) {
     res.status(403).json({ ok: false, accessToken: "" })

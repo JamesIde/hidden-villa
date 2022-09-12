@@ -1,9 +1,10 @@
-<div class="w-full mx-auto h-18">
+<div class="w-full mx-auto h-max">
     <div class="navbar  text-black">
-        <a class="normal-case text-xl xl:ml-[500px] lg:ml-[200px] md:ml-[100px] ">Title</a>
+        <a class="normal-case xl:ml-[500px] lg:ml-[200px] md:ml-[100px] text-blue-600 text-2xl leading-10"
+            [routerLink]="['/']">HiddenVilla</a>
         <div class="ml-auto xl:mr-[350px] md:mr-[250px] ">
             <div>
-                <a *ngIf="isLogged">
+                <a *ngIf="isLogged" class=" p-2 bg-gray-300 text-black rounded">
                     {{welcomeMessage}}
                 </a>
             </div>

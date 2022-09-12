@@ -11,7 +11,7 @@ import {
   throwError,
 } from 'rxjs';
 import { HotelRoomModule } from '../components/hotelRoom/hotelRoom.module';
-import { BookingInfo, HotelRoom } from '../shared/HotelInfoModel';
+import { BookingInfo, HotelRoom } from '../shared/hotelModel';
 
 @Injectable({
   providedIn: 'root',
@@ -25,17 +25,22 @@ export class RoomService {
   selectedRoom = new BehaviorSubject<HotelRoom>(null);
 
   storeBookingInformation(form: FormGroup) {
-    const dates: BookingInfo = {
+    let checkIn: string = form.value.checkIn.toISOString().split('T')[0];
+    let checkOut: string = form.value.checkOut.toISOString().split('T')[0];
+    let NoGuests = form.value.NoGuests;
+    const booking: BookingInfo = {
       // YYYY-MM-DD & Number
-      checkIn: form.value.checkIn.toISOString().split('T')[0],
-      checkOut: form.value.checkOut.toISOString().split('T')[0],
-      NoGuests: form.value.NoGuests,
+      checkIn,
+      checkOut,
+      NoGuests,
+      duration: this.calculateDuration(checkIn, checkOut),
     };
-    this.bookingInfo.next(dates);
-    localStorage.setItem('booking', JSON.stringify(dates));
+    // Emit it & store
+    this.bookingInfo.next(booking);
+    localStorage.setItem('booking', JSON.stringify(booking));
   }
 
-  // Fetch rooms and next them in behaviour subject
+  // Fetch rooms and emit them in behaviour subject
   getallRooms() {
     return this.http.get<HotelRoom[]>(`${this.API_URL}/api/hotels`).pipe(
       catchError((err) => {
@@ -56,5 +61,35 @@ export class RoomService {
       }),
       tap((room) => this.selectedRoom.next(room))
     );
+  }
+
+  calculateDuration(checkIn: string, checkOut: string) {
+    let date1 = new Date(checkIn);
+    let date2 = new Date(checkOut);
+    let timeDiff = Math.abs(date2.getTime() - date1.getTime());
+    let diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    return diffDays;
+  }
+
+  calculateTotalCost(duration: number, price: number) {
+    return duration * price;
+  }
+
+  getBookingDuration(): number {
+    const booking = localStorage.getItem('booking');
+    if (booking) {
+      const bookingInfo = JSON.parse(booking);
+      return bookingInfo.duration;
+    }
+    return 0;
+  }
+
+  getBooking(): BookingInfo {
+    const booking = localStorage.getItem('booking');
+    if (booking) {
+      const bookingInfo = JSON.parse(booking);
+      return bookingInfo;
+    }
+    return null;
   }
 }

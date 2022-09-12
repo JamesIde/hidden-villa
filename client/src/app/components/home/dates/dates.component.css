@@ -1,0 +1,21 @@
+.image{
+    height:91.5vh; background-size:cover; width:auto;
+    background-image:url('../../../../assets/hotelvilla.webp');
+    background-position:50% 50%;
+  }
+
+  .form{
+    padding: 35px;
+    border-radius: 5px;
+    background-color: #083d92;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+  }
+
+  .text-input{
+    color: white!important;
+  }

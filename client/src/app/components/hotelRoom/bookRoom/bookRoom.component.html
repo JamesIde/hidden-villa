@@ -18,63 +18,91 @@
     </div>
   </div>
   <div id="form" class="p-10">
-    <p class="text-center font-bold mb-3">Enter your personal details</p>
+    <div id="room-details">
+      <p class="font-bold text-center pt-4 mb text-xl">Confirm your selection</p>
+      <div class="flex flex-row justify-between">
+        <p>
+          Room
+        </p>
+        <p class="font-bold">
+          {{ roomDetails.name }}
+        </p>
+      </div>
+      <div class="flex flex-row justify-between">
+        <p>
+          Check In
+        </p>
+        <p class="font-bold">
+          {{ dateDetails.checkIn | date: 'dd/MM/yyyy' }}
+        </p>
+      </div>
+      <div class="flex flex-row justify-between">
+        <p>
+          Check Out
+        </p>
+        <p class="font-bold">
+          {{ dateDetails.checkOut | date: 'dd/MM/yyyy' }}
+        </p>
+      </div>
+      <div class="flex flex-row justify-between">
+        <p>
+          Duration
+        </p>
+        <p class="font-bold">
+          {{ dateDetails.duration }} {{ dateDetails.duration > 1 ? 'nights' : 'night' }}
+        </p>
+      </div>
+      <div class="flex flex-row justify-between">
+        <p>
+          Total Cost
+        </p>
+        <p class="font-bold">
+          {{ totalCost | currency: 'AUD' }}
+        </p>
+      </div>
+      <div class="content-center text-center align-center ">
+        <!-- TODO Tailwind modal & align right & add icon -->
+        <p
+          class="text-xs p-2 border-white border-[1px] hover:cursor-pointer hover:border-blue-400 rounded hover:duration-500">
+          Update selection here
+        </p>
+      </div>
+    </div>
+    <p class="text-center font-bold mb-3 text-xl">Enter your personal details</p>
     <!-- TODO Error messages go here -->
     <form [formGroup]="userInfo" (ngSubmit)="handleBookingSubmit()">
       <label class="block mb-4">
         <span class="text-gray-700">First Name</span>
-        <input
-          type="text"
-          class="mt-0 w-full px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-black"
-          placeholder=""
-          formControlName="firstName"
-        />
+        <input type="text"
+          class="mt-0 w-full px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-black" placeholder=""
+          formControlName="firstName" />
       </label>
       <label class="block mb-4">
         <span class="text-gray-700">Last Name</span>
-        <input
-          type="text"
-          class="mt-0 w-full px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-black"
-          placeholder=""
-          formControlName="lastName"
-        />
+        <input type="text"
+          class="mt-0 w-full px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-black" placeholder=""
+          formControlName="lastName" />
       </label>
       <label class="block mb-4">
         <span class="text-gray-700">Email</span>
-        <input
-          type="email"
-          class="mt-0 w-full px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-black"
-          placeholder=""
-          formControlName="email"
-        />
+        <input type="email"
+          class="mt-0 w-full px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-black" placeholder=""
+          formControlName="email" />
       </label>
       <label class="block">
         <span class="text-gray-700">Phone Number</span>
-        <input
-          type="number"
-          class="mt-0 w-full px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-black"
-          placeholder=""
-          formControlName="phone"
-        />
+        <input type="number"
+          class="mt-0 w-full px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-black" placeholder=""
+          formControlName="phone" />
       </label>
+
+      <!-- TODO center this button -->
+      <div class="text-center mt-4">
+        <button mat-raised-button color="primary" type="submit" [disabled]="userInfo.invalid"
+          class="text-black text-md  mb-2">
+          Proceed to payment
+        </button>
+      </div>
     </form>
-    <p class="font-bold text-center pt-4 mb">Confirm your selection</p>
-    <!-- <p>
-      <span class="font-bold">
-        {{ roomDetails.name }}
-      </span>
-      for <span class="font-bold">{{ orderDetails.duration }}</span>
-      <span class="font-bold">
-        {{ orderDetails.duration > 1 ? "nights" : "night" }}
-      </span>
-      between
-      <span class="font-bold">
-        {{ dateDetails.checkIn | date: "dd/MM/yyyy" }}
-      </span>
-      and
-      <span class="font-bold">
-        {{ dateDetails.checkOut | date: "dd/MM/yyyy" }}.
-      </span>
-    </p> -->
   </div>
 </div>

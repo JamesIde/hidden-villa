@@ -7,14 +7,8 @@ import { RegisterComponent } from './register/register.component';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { ProfileComponent } from './profile/profile.component';
-import { LoadingComponent } from './loading/loading.component';
 @NgModule({
-  declarations: [
-    LoginComponent,
-    RegisterComponent,
-    ProfileComponent,
-    LoadingComponent,
-  ],
+  declarations: [LoginComponent, RegisterComponent, ProfileComponent],
   imports: [
     AuthRoutingModule,
     RouterModule,

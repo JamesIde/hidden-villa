@@ -2,13 +2,7 @@ export interface BookingInfo {
   checkIn: string;
   checkOut: string;
   NoGuests: number;
-}
-
-export interface OrderInfo {
   duration: number;
-  // room: HotelRoom,
-  cost: number;
-  totalCost: number;
 }
 
 export interface HotelRoom {
@@ -19,6 +13,21 @@ export interface HotelRoom {
   numberOfBeds: string;
   maxGuests: number;
   images: Image[];
+}
+
+export interface Booking {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  checkIn: string;
+  checkOut: string;
+  duration: number;
+  roomId: number;
+  roomName: string;
+  roomPrice: number;
+  totalCost: number;
+  NoGuests: number;
 }
 
 export interface Image {

@@ -1,56 +1,46 @@
 <section id="date-picker">
-  <form [formGroup]="datePickerForm" (ngSubmit)="handleSubmit()">
-    <div class="w-max mx-auto">
-      <div class="flex flex-row gap-2">
-        <div class="w-max">
-          <mat-form-field appearance="fill">
-            <mat-label class="text-md">Enter your dates</mat-label>
-            <mat-date-range-input [rangePicker]="picker">
-              <input
-                matStartDate
-                placeholder="Start date"
-                [min]="minDate"
-                [max]="maxDate"
-                formControlName="checkIn"
-              />
-              <input
-                matEndDate
-                placeholder="End date"
-                [min]="minDate"
-                [max]="maxDate"
-                formControlName="checkOut"
-              />
-            </mat-date-range-input>
-            <mat-datepicker-toggle
-              matSuffix
-              [for]="picker"
-            ></mat-datepicker-toggle>
-            <mat-date-range-picker #picker></mat-date-range-picker>
-          </mat-form-field>
+  <div class="image">
+    <form [formGroup]="datePickerForm" (ngSubmit)="handleSubmit()" class="form">
+      <div class="w-max mx-auto">
+        <p class="text-center text-3xl text-white">
+          Hidden Villa
+        </p>
+        <p class="text-center text-sm text-white">
+          Find your dream booking today
+        </p>
+        <div class="flex flex-row gap-2">
+          <div class="w-max">
+            <mat-form-field appearance="fill">
+              <mat-label class="text-md text-white">Enter your dates</mat-label>
+              <mat-date-range-input [rangePicker]="picker">
+                <input matStartDate placeholder="Start date" [min]="minDate" [max]="maxDate" class="text-input"
+                  formControlName="checkIn" />
+                <input matEndDate placeholder="End date" [min]="minDate" [max]="maxDate" formControlName="checkOut"
+                  class="text-input" />
+              </mat-date-range-input>
+              <mat-datepicker-toggle matSuffix [for]="picker" class="text-white"></mat-datepicker-toggle>
+              <mat-date-range-picker #picker></mat-date-range-picker>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field class="example-form-field text-white" appearance="fill">
+              <mat-label class="text-white">Number of Guests</mat-label>
+
+              <input matInput type="number" formControlName="NoGuests" />
+            </mat-form-field>
+          </div>
         </div>
-        <div>
-          <mat-form-field class="example-form-field" appearance="fill">
-            <mat-label>Number of Guests</mat-label>
-            <!-- TODO Center this entire div in page -->
-            <!-- TODO Add background image -->
-            <input matInput type="number" formControlName="NoGuests" />
-          </mat-form-field>
+        <div class="text-center">
+          <button mat-raised-button color="accent" type="submit" [disabled]="datePickerForm.invalid" class="text-white">
+            Check Availability
+          </button>
         </div>
       </div>
-      <div class="text-center">
-        <button
-          mat-raised-button
-          color="primary"
-          type="submit"
-          [disabled]="datePickerForm.invalid"
-        >
-          Check Availability
-        </button>
-      </div>
-    </div>
-  </form>
+    </form>
+  </div>
 </section>
-<div style="min-height: fit-content;
-background-image: url('/assets/Get-started-section.jpg'); background-size: cover; background-position:center;
-width: 100%; ">
-</div>
+
+
+
+<!-- TODO Center this entire div in page -->
+<!-- TODO Add background image -->

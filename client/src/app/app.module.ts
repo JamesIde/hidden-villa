@@ -21,9 +21,17 @@ import { MatButtonModule } from '@angular/material/button';
 import { RoomsComponent } from './components/hotelRoom/roomsList/rooms.component';
 import { HotelRoomModule } from './components/hotelRoom/hotelRoom.module';
 import { RoomService } from './services/room.service';
+import { RouterModule } from '@angular/router';
+import { LoadingComponent } from './components/auth/loading/loading.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, IndexComponent, DatesComponent],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    IndexComponent,
+    DatesComponent,
+    // LoadingComponent,
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,

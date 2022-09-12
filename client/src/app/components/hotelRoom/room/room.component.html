@@ -1,11 +1,7 @@
-<div class="xl:w-2/4 md:w-2/4 w-2/4 mx-auto p-2 mb-2">
-  <div id="grid-wrapper" class="flex flex-row justify-between">
+<div class="xl:w-2/4 md:w-2/4 w-full mx-auto p-2 mb-2">
+  <div id="grid-wrapper" class="grid xl:grid-cols-2 md:grid-cols-1 grid-cols-1 justify-between">
     <div class="w-[90%]">
-      <img
-        src="{{ room.images[0].image }}"
-        alt=""
-        class="object-contain mb-2"
-      />
+      <img src="{{ room.images[0].image }}" alt="" class="object-contain mb-2" />
     </div>
     <div class="w-full">
       <h2 class="text-2xl text-center font-bold">
@@ -14,30 +10,28 @@
       <p class="text-sm text-gray-500 pl-4 pr-4 justify-center">
         {{ room.description }}
       </p>
-      <div id="flex-details-wrapper" class="flex flex-row justify-evenly">
+      <div id="flex-details-wrapper" class="flex flex-row justify-between">
         <div>
           <p class="text-sm text-black pl-4 pr-4 justify-center">
             Max {{ room.maxGuests }} people
           </p>
-        </div>
-        <div>
           <p class="text-sm text-black pl-4 pr-4 justify-center">
             {{ room.numberOfBeds }}
           </p>
-        </div>
-        <div>
           <p class="text-sm black pl-4 pr-4 justify-center">
             ${{ room.price }}/night
           </p>
         </div>
-      </div>
-      <div class="mx-auto text-center">
-        <button
-          class="p-2 pl-10 pr-10 bg-purple-500 text-white text-center rounded hover:cursor-pointer hover:bg-purple-700 duration-500"
-          [routerLink]="['/room', room.roomId]"
-        >
-          Book Now
-        </button>
+        <div class="border-2">
+          <p class="font-bold">
+            Total Cost ${{ room.price * duration }}
+          </p>
+          <button
+            class="p-2 pl-10 pr-10 bg-purple-500 text-white text-center rounded hover:cursor-pointer hover:bg-purple-700 duration-500"
+            [routerLink]="['/room', room.roomId]">
+            Book Now
+          </button>
+        </div>
       </div>
     </div>
   </div>
