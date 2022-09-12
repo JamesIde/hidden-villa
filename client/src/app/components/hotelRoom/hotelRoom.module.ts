@@ -14,6 +14,12 @@ import { RoomsComponent } from './roomsList/rooms.component';
 import { RoomComponent } from './room/room.component';
 import { BookRoomComponent } from './bookRoom/bookRoom.component';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
 @NgModule({
   declarations: [
     RoomsComponent,
@@ -28,7 +34,12 @@ import { MatButtonModule } from '@angular/material/button';
     CommonModule,
     BrowserModule,
     MatButtonModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatIconModule,
   ],
-  providers: [RoomService],
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }, RoomService],
 })
 export class HotelRoomModule {}

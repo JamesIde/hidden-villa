@@ -23,13 +23,15 @@ export class BookRoomComponent implements OnInit {
 
   // Booking method
   handleBookingSubmit() {
+    // Format date to dd/MM/yyyy
+
     let booking: Booking = {
       firstName: this.userInfo.value.firstName,
       lastName: this.userInfo.value.lastName,
       email: this.userInfo.value.email,
       phone: this.userInfo.value.phone,
-      checkIn: this.dateDetails.checkIn,
-      checkOut: this.dateDetails.checkOut,
+      checkIn: this.dateDetails.originalCheckIn,
+      checkOut: this.dateDetails.originalCheckOut,
       duration: this.dateDetails.duration,
       roomId: this.roomDetails.roomId,
       roomName: this.roomDetails.name,
@@ -49,12 +51,14 @@ export class BookRoomComponent implements OnInit {
     this.bookingOrder = this.roomService.bookingInfo.subscribe((dates) => {
       // CheckIn, out, duration
       this.dateDetails = dates ? dates : this.roomService.getBooking();
+      console.log('Dates: ', this.dateDetails);
       // Total cost
       this.totalCost = this.roomService.calculateTotalCost(
         this.dateDetails.duration,
         this.roomDetails.price
       );
     });
+
     // Initialise the form
     this.userInfo = new FormGroup({
       firstName: new FormControl(null, {

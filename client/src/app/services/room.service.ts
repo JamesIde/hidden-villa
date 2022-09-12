@@ -28,10 +28,15 @@ export class RoomService {
     let checkIn: string = form.value.checkIn.toISOString().split('T')[0];
     let checkOut: string = form.value.checkOut.toISOString().split('T')[0];
     let NoGuests = form.value.NoGuests;
+    // Get original dates
+    let originalCheckIn = form.value.checkIn;
+    let originalCheckOut = form.value.checkOut;
     const booking: BookingInfo = {
       // YYYY-MM-DD & Number
       checkIn,
       checkOut,
+      originalCheckIn,
+      originalCheckOut,
       NoGuests,
       duration: this.calculateDuration(checkIn, checkOut),
     };
@@ -88,6 +93,7 @@ export class RoomService {
     const booking = localStorage.getItem('booking');
     if (booking) {
       const bookingInfo = JSON.parse(booking);
+      console.log('from ls: ', bookingInfo);
       return bookingInfo;
     }
     return null;
