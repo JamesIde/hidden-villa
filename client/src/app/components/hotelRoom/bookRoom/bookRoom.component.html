@@ -1,3 +1,6 @@
+<!-- <div *ngIf="isLoading" class="flex justify-center">
+  <app-loading></app-loading>
+</div> -->
 <div class="mx-auto flex flex-row w-7/12">
   <div class="w-[50%]" id="room-details">
     <button class="p-2 bg-blue-500 text-white rounded hover:bg-blue-900 hover: duration-500 mb-3" routerLink="/rooms">
@@ -10,7 +13,7 @@
       </p>
       <div class="flex flex-row justify-evenly">
         <div class="inline-flex">
-          <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon>
+          <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="face"></mat-icon>
           <p class="pt-[4px] pl-1">{{ roomDetails.maxGuests }} guests</p>
         </div>
         <div class="inline-flex">

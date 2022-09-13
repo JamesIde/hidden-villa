@@ -26,6 +26,7 @@ export class ProfileComponent implements OnInit {
       }
     );
   }
+  // TODO Show profile details, have the ability to update profile details, see recent orders, and a model to see the clicked order!
 
   onClick() {}
 }

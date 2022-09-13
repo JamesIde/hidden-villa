@@ -40,13 +40,12 @@ export class RoomsComponent implements OnInit, OnDestroy {
       }
     );
     // Access available rooms
-    this.roomSubscription = this.roomService.availableRooms.subscribe(
-      (rooms) => {
+    this.roomSubscription = this.roomService
+      .getallRooms()
+      .subscribe((rooms) => {
         this.rooms = rooms;
-        // console.log('Rooms: ', rooms);
         this.isLoading = false;
-      }
-    );
+      });
 
     // Get original year, month and day from booking
     // Convert string to date

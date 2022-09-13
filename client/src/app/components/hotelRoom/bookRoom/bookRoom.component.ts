@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
+import { BookingService } from 'src/app/services/booking.service';
 import { RoomService } from 'src/app/services/room.service';
 import { BookingInfo, HotelRoom, Booking } from 'src/app/shared/hotelModel';
 
@@ -10,7 +12,11 @@ import { BookingInfo, HotelRoom, Booking } from 'src/app/shared/hotelModel';
   styleUrls: ['./bookRoom.component.css'],
 })
 export class BookRoomComponent implements OnInit {
-  constructor(private roomService: RoomService) {}
+  constructor(
+    private roomService: RoomService,
+    private bookingService: BookingService,
+    private authService: AuthService
+  ) {}
   // Subscriptions
   selectedRoom!: Subscription;
   bookingOrder!: Subscription;
@@ -38,8 +44,10 @@ export class BookRoomComponent implements OnInit {
       roomPrice: this.roomDetails.price,
       totalCost: this.totalCost,
       NoGuests: this.roomDetails.maxGuests,
+      userID: this.authService.getUserID(),
     };
-    console.log('Booking: ', booking);
+
+    this.bookingService.handleCheckout(booking);
   }
 
   ngOnInit(): void {

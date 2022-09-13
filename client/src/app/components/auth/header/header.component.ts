@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   userSubscription!: Subscription;
 
   isLogged = false;
-  welcomeMessage!: string;
+  name!: string;
 
   onLogout() {
     this.authService.logout();
@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.userSubscription = this.authService.token.subscribe((token) => {
       console.log('Received in header', token);
       this.isLogged = token ? true : false;
-      this.welcomeMessage = token ? 'Welcome User!' : null;
+      this.name = JSON.parse(localStorage.getItem('name')!);
     });
   }
 

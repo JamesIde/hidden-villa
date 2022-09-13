@@ -1,11 +1,11 @@
-<div class="w-full mx-auto h-max">
+<!-- <div class="w-full mx-auto h-max">
     <div class="navbar  text-black">
         <a class="normal-case xl:ml-[500px] lg:ml-[200px] md:ml-[100px] text-blue-600 text-2xl leading-10"
             [routerLink]="['/']">HiddenVilla</a>
         <div class="ml-auto xl:mr-[350px] md:mr-[250px] ">
             <div>
                 <a *ngIf="isLogged" class=" p-2 bg-gray-300 text-black rounded">
-                    {{welcomeMessage}}
+                    {{name}}
                 </a>
             </div>
             <a class="p-2 btn btn-ghost m-2" href="#" [routerLink]="['/']" routerLinkActive="active"
@@ -18,6 +18,42 @@
                 *ngIf="isLogged">Logout</a>
             <a class="p-2 btn btn-ghost m-2" href="#" [routerLink]="['/profile']" routerLinkActive="active">Profile</a>
 
+        </div>
+    </div>
+</div> -->
+<div class="navbar bg-base-100">
+    <div class="flex-1">
+        <a class="btn btn-ghost normal-case text-xl" [routerLink]="['/']">HiddenVilla</a>
+    </div>
+    <div class="flex-none">
+        <div class="dropdown dropdown-end">
+            <label tabindex="0" class="">
+                <div *ngIf="isLogged" class="inline-flex mt-4">
+                    <p class="text-md p-1">
+                        Welcome,
+                    </p> <span class="font-bold p-1">
+                        {{name}}
+                    </span>
+                </div>
+                <div *ngIf="!isLogged">
+                    <a class="p-2 btn btn-ghost m-2" href="#" [routerLink]="['/login']" routerLinkActive="active"
+                        *ngIf="!isLogged">Login</a>
+                    <a class="p-2 btn btn-ghost m-2" href="#" [routerLink]="['/register']" routerLinkActive="active"
+                        *ngIf="!isLogged">Register</a>
+                </div>
+            </label>
+        </div>
+        <div class="dropdown dropdown-end" *ngIf="isLogged">
+            <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+                <div class="w-10 rounded-full p-2">
+                    <!-- settings -->
+                    <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="settings"></mat-icon>
+                </div>
+            </label>
+            <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+                <li><a>Profile</a></li>
+                <li><a (click)="onLogout()">Logout</a></li>
+            </ul>
         </div>
     </div>
 </div>

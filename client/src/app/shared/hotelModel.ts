@@ -30,6 +30,7 @@ export interface Booking {
   roomPrice: number;
   totalCost: number;
   NoGuests: number;
+  userID: number;
 }
 
 export interface Image {

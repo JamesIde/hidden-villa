@@ -1,8 +1,7 @@
-<div *ngIf="isLoading">
+<div *ngIf="isLoading" class="flex justify-center">
   <app-loading></app-loading>
 </div>
-<div class="w-2/4 mx-auto p-2 text-center text-md">
-
+<div class="xl:w-3/4 md:w-full w-full mx-auto p-2 text-center text-md" *ngIf="!isLoading">
   <p class="text-md">
     You selected
   </p>

@@ -10,21 +10,38 @@ datasource db {
 }
 
 model User {
-  id           Int     @id @default(autoincrement())
-  email        String  @unique
+  id           Int       @id @default(autoincrement())
+  email        String    @unique
   name         String?
   password     String
-  tokenVersion Int     @default(0)
+  tokenVersion Int       @default(0)
+  Booking      Booking[]
+}
+
+model Booking {
+  bookingId     Int       @id @default(autoincrement())
+  checkIn       String
+  checkOut      String
+  totalCost     String
+  paymentStatus String
+  duration      String
+  customer      User      @relation(fields: [id], references: [id])
+  id            Int
+  bookedRoom    HotelRoom @relation(fields: [roomId], references: [roomId])
+  roomId        Int
+  phone         String
+  paymentID     String
 }
 
 model HotelRoom {
-  roomId       Int      @id @default(autoincrement())
+  roomId       Int       @id @default(autoincrement())
   name         String
   price        Int
-  description  String   @db.Text
+  description  String    @db.Text
   numberOfBeds String
   maxGuests    Int
   images       Images[]
+  Booking      Booking[]
 }
 
 model Images {
@@ -32,16 +49,4 @@ model Images {
   image     String
   roomId    Int
   hotelRoom HotelRoom @relation(fields: [roomId], references: [roomId])
-}
-model Booking{
-  bookingId Int @id @default(autoincrement())
-  checkIn String
-  checkOut String
-  duration String
-  costPerNight Int
-  totalCost Int
-  name String
-  email String
-  phone String
-  paymentID Int
 }

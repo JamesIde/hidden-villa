@@ -9,7 +9,7 @@ const routes: Routes = [
   {
     path: 'rooms',
     component: RoomsComponent,
-    resolve: [AvailableRoomResolver],
+    // resolve: [AvailableRoomResolver],
   },
   {
     path: 'room/:id',

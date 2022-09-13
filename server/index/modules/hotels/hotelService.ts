@@ -66,7 +66,6 @@ const addHotelRoom = async (req: Request, res: Response) => {
     res.status(400)
     throw new Error("Please provide all required fields")
   }
-  console.log(req.body)
   try {
     // Create hotel room
     const hotelRoom = await prisma.hotelRoom.create({
@@ -104,19 +103,15 @@ const deleteHotelRoom = async (req: Request, res: Response) => {
   }
   try {
     // Delete hotel room and all images associated with it
-    // await prisma.hotelRoom.delete({
-    //   where: {
-    //     roomId: parseInt(id),
-    //   },
-    //   include: {
-    //     images: true,
-    //   },
-    // })
-    await prisma.user.deleteMany({
+    await prisma.hotelRoom.delete({
       where: {
-        name: "james",
+        roomId: parseInt(id),
+      },
+      include: {
+        images: true,
       },
     })
+
     res.status(200).json({ message: "Hotel room deleted successfully" })
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {

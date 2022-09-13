@@ -19,16 +19,16 @@ export class AuthService {
   // Set up subscriber to propagate data to the component who subscribe to it.
   todoSub = new Subject<Todo[]>();
   token = new BehaviorSubject<string>(null);
+  name = new BehaviorSubject<string>(null);
   userProfile = new Subject<any>();
   constructor(private http: HttpClient, private router: Router) {}
-  readonly API_URL = 'https://jsonplaceholder.typicode.com/todos';
 
-  readonly BACKEND_URL = 'http://localhost:5000';
+  readonly SERVER_DOMAIN = 'http://localhost:5000';
 
   loginUser(user: LoginUser): Observable<User> {
     const strUser = qs.stringify(user);
     return this.http
-      .post<User>(this.BACKEND_URL + '/api/auth/login', strUser, {
+      .post<User>(this.SERVER_DOMAIN + '/api/auth/login', strUser, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
         },
@@ -42,6 +42,7 @@ export class AuthService {
         // Must transform the output into the correct type
         map((user) => {
           return {
+            id: user.id,
             success: user.success,
             name: user.name,
             email: user.email,
@@ -50,7 +51,10 @@ export class AuthService {
         }),
         tap((user) => {
           localStorage.setItem('token', JSON.stringify(user.accessToken));
+          localStorage.setItem('userID', JSON.stringify(user.id));
+          localStorage.setItem('name', JSON.stringify(user.name));
           this.token.next(user.accessToken);
+          this.name.next(user.name);
           //  this.autoLogout(30000);
         })
       );
@@ -61,9 +65,11 @@ export class AuthService {
       email: user.email,
       name: user.name,
       password: user.password,
+      password2: user.password2,
     };
+    const strRegisterUser = qs.stringify(formData);
     return this.http
-      .post<User>(this.BACKEND_URL + '/api/auth/register', formData, {
+      .post<User>(this.SERVER_DOMAIN + '/api/auth/register', strRegisterUser, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
         },
@@ -85,6 +91,7 @@ export class AuthService {
         }),
         tap((user) => {
           localStorage.setItem('token', JSON.stringify(user.accessToken));
+          localStorage.setItem('userID', JSON.stringify(user.id));
           this.token.next(user.accessToken);
           //  this.autoLogout(30000);
         })
@@ -111,13 +118,14 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('userID');
     localStorage.removeItem('booking');
     this.token.next(null);
     this.router.navigate(['/']);
   }
 
   getProfile() {
-    return this.http.get(this.BACKEND_URL + '/api/auth/profile', {}).pipe(
+    return this.http.get(this.SERVER_DOMAIN + '/api/auth/profile', {}).pipe(
       catchError((err) => {
         console.log('Handling error locally and rethrowing it...', err);
         return throwError(() => err);
@@ -136,6 +144,10 @@ export class AuthService {
 
   getAccessToken(): string {
     return this.token.value;
+  }
+
+  getUserID(): number {
+    return parseInt(localStorage.getItem('userID'));
   }
 
   setAccessToken(token: string): void {

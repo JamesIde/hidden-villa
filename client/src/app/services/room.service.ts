@@ -19,7 +19,7 @@ import { BookingInfo, HotelRoom } from '../shared/hotelModel';
 export class RoomService {
   constructor(private http: HttpClient) {}
 
-  readonly API_URL = 'http://localhost:5000';
+  readonly SERVER_DOMAIN = 'http://localhost:5000';
   bookingInfo = new BehaviorSubject<BookingInfo>(null);
   availableRooms = new BehaviorSubject<HotelRoom[]>(null);
   selectedRoom = new BehaviorSubject<HotelRoom>(null);
@@ -47,25 +47,26 @@ export class RoomService {
 
   // Fetch rooms and emit them in behaviour subject
   getallRooms() {
-    return this.http.get<HotelRoom[]>(`${this.API_URL}/api/hotels`).pipe(
+    return this.http.get<HotelRoom[]>(`${this.SERVER_DOMAIN}/api/hotels`).pipe(
       catchError((err) => {
         console.log('Handling error locally and rethrowing it...', err);
         return throwError(() => err);
       }),
       tap((rooms) => {
         this.availableRooms.next(rooms);
-        console.log('Rooms tapped', rooms);
       })
     );
   }
   bookRoom(id: number) {
-    return this.http.get<HotelRoom>(`${this.API_URL}/api/hotels/${id}`).pipe(
-      catchError((err) => {
-        console.log('Handling error locally and rethrowing it...', err);
-        return throwError(() => err);
-      }),
-      tap((room) => this.selectedRoom.next(room))
-    );
+    return this.http
+      .get<HotelRoom>(`${this.SERVER_DOMAIN}/api/hotels/${id}`)
+      .pipe(
+        catchError((err) => {
+          console.log('Handling error locally and rethrowing it...', err);
+          return throwError(() => err);
+        }),
+        tap((room) => this.selectedRoom.next(room))
+      );
   }
 
   calculateDuration(checkIn: string, checkOut: string) {

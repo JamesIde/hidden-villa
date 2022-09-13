@@ -7,6 +7,7 @@ import { RegisterComponent } from './register/register.component';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { ProfileComponent } from './profile/profile.component';
+import { FooterComponent } from './footer/footer.component';
 @NgModule({
   declarations: [LoginComponent, RegisterComponent, ProfileComponent],
   imports: [

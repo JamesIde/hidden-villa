@@ -3,6 +3,7 @@ import { Prisma, PrismaClient } from "@prisma/client"
 import { genAccessToken, genRefreshToken } from "../utilities/genToken"
 import * as bcrypt from "bcryptjs"
 import * as jwt from "jsonwebtoken"
+import { v4 as uuidv4 } from "uuid"
 const prisma = new PrismaClient()
 
 const register = async (req: Request, res: Response) => {
@@ -49,6 +50,7 @@ const register = async (req: Request, res: Response) => {
       })
 
       res.status(201).json({
+        id: newUser.id,
         success: true,
         accessToken: genAccessToken(newUser.id),
         name: newUser.name,
@@ -65,7 +67,6 @@ const register = async (req: Request, res: Response) => {
 }
 
 const login = async (req: Request, res: Response) => {
-  console.log(req.body)
   const { email, password } = req.body
 
   if (!email || !password) {
@@ -101,6 +102,7 @@ const login = async (req: Request, res: Response) => {
 
     // Return user info
     res.status(201).json({
+      id: user!.id,
       success: true,
       accessToken: genAccessToken(user!.id),
       name: user!.name,
@@ -121,15 +123,16 @@ const getLoggedInUser = async (req: Request, res: Response) => {
       where: {
         id: req.user.id,
       },
+      include: {
+        Booking: {
+          include: {
+            bookedRoom: true,
+          },
+        },
+      },
     })
-
     if (user) {
-      res.status(200).json({
-        success: true,
-        name: user.name,
-        email: user.email,
-        tokenVersion: user.tokenVersion,
-      })
+      res.status(200).json(user)
     }
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
@@ -153,7 +156,6 @@ const refreshAccessToken = async (req: Request, res: Response) => {
 
   try {
     payload = jwt.verify(token, process.env.REFRESH_SECRET as string) as any // TODO Fix this
-    console.log("payload", payload)
   } catch (error: any) {
     res.status(403).json({ ok: false, accessToken: "" })
   }
