@@ -7,7 +7,7 @@
             <!-- <div *ngIf="isLoading" class="text-center">
                 <app-loading></app-loading>
             </div> -->
-            <div *ngIf="isError">
+            <div class="text-center font-bold" *ngIf="isError">
                 {{error}}
             </div>
             <form [formGroup]="registerForm" (ngSubmit)="handleSubmit()">
@@ -43,7 +43,7 @@
                         This field is required
                     </span>
                 </div>
-                <div formGroupName="passwordGroup">
+                <div>
 
 
                     <label class="block">
@@ -57,8 +57,7 @@
           focus:ring-0 focus:border-black
         " placeholder="" formControlName="password" />
                     </label>
-                    <div
-                        *ngIf="registerForm.get('passwordGroup.password').invalid && registerForm.get('passwordGroup.password').touched">
+                    <div *ngIf="registerForm.get('password').invalid && registerForm.get('password').touched">
                         <span class="text-sm text-gray-500">
                             This field is required and must be minimum 6 characters
                         </span>
@@ -75,17 +74,12 @@
         " placeholder="" formControlName="confirmPassword" />
                     </label>
                 </div>
-                <div
-                    *ngIf="registerForm.get('passwordGroup.confirmPassword').invalid && registerForm.get('passwordGroup.confirmPassword').touched">
+                <div *ngIf="registerForm.get('confirmPassword').invalid && registerForm.get('confirmPassword').touched">
                     <span class="text-sm text-gray-500">
                         This field is required and must be minimum 6 characters
                     </span>
                 </div>
-                <div *ngIf="registerForm.errors?.['notmatched'] && registerForm.errors?.['notmatched']">
-                    <span>
-                        Passwords don't match
-                    </span>
-                </div>
+
                 <div class="text-center">
                     <button type="submit"
                         class=" bg-purple-500 p-2 pl-20 pr-20 mt-2 mb-3 w-full text-white font-bold w-max-md  rounded hover:bg-purple-800 duration-500 ">

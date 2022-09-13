@@ -24,19 +24,14 @@ export class RegisterComponent implements OnInit {
     this.registerForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
       email: new FormControl(null, [Validators.required, Validators.email]),
-      passwordGroup: new FormGroup(
-        {
-          password: new FormControl(null, [
-            Validators.required,
-            Validators.minLength(6),
-          ]),
-          confirmPassword: new FormControl(null, [
-            Validators.required,
-            Validators.minLength(6),
-          ]),
-        },
-        { validators: passwordMatchingValidatior }
-      ),
+      password: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(6),
+      ]),
+      confirmPassword: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(6),
+      ]),
     });
   }
 
@@ -48,11 +43,12 @@ export class RegisterComponent implements OnInit {
       password: this.registerForm.value.password,
       password2: this.registerForm.value.confirmPassword,
     };
+    console.log(userData);
     this.authService.registerUser(userData).subscribe(
       (user) => {
         this.isLoading = false;
         console.log('Registered');
-        this.router.navigate(['/todo']);
+        this.router.navigate(['/']);
         this.registerForm.reset();
       },
       (error) => {
