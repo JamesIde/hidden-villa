@@ -22,8 +22,8 @@ export interface Booking {
   lastName: string;
   email: string;
   phone: string;
-  checkIn: Date;
-  checkOut: Date;
+  checkIn: string;
+  checkOut: string;
   duration: number;
   roomId: number;
   roomName: string;

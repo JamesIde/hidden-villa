@@ -29,15 +29,21 @@ export class BookRoomComponent implements OnInit {
 
   // Booking method
   handleBookingSubmit() {
-    // Format date to dd/MM/yyyy
+    // Format to match the database
+    const formatCheckIn = new Date(
+      this.dateDetails.originalCheckIn
+    ).toLocaleDateString();
+    const formatCheckOut = new Date(
+      this.dateDetails.originalCheckOut
+    ).toLocaleDateString();
 
     let booking: Booking = {
       firstName: this.userInfo.value.firstName,
       lastName: this.userInfo.value.lastName,
       email: this.userInfo.value.email,
       phone: this.userInfo.value.phone,
-      checkIn: this.dateDetails.originalCheckIn,
-      checkOut: this.dateDetails.originalCheckOut,
+      checkIn: formatCheckIn,
+      checkOut: formatCheckOut,
       duration: this.dateDetails.duration,
       roomId: this.roomDetails.roomId,
       roomName: this.roomDetails.name,
@@ -46,7 +52,7 @@ export class BookRoomComponent implements OnInit {
       NoGuests: this.roomDetails.maxGuests,
       userID: this.authService.getUserID(),
     };
-
+    console.log(booking);
     this.bookingService.handleCheckout(booking);
   }
 

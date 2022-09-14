@@ -107,17 +107,10 @@ const createBooking = async (
   res: Response
 ) => {
   try {
-    // Format dates
-    const checkInDate = new Date(session.metadata.checkIn).toLocaleString(
-      "en-AU"
-    )
-    const checkOutDate = new Date(session.metadata.checkOut).toLocaleString(
-      "en-AU"
-    )
     const booking = await prisma.booking.create({
       data: {
-        checkIn: checkInDate,
-        checkOut: checkOutDate,
+        checkIn: session.metadata.checkIn,
+        checkOut: session.metadata.checkOut,
         totalCost: session.metadata.totalCost,
         paymentStatus: session.payment_status,
         duration: session.metadata.duration,

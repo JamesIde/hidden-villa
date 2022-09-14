@@ -103,12 +103,9 @@ const deleteHotelRoom = async (req: Request, res: Response) => {
   }
   try {
     // Delete hotel room and all images associated with it
-    await prisma.hotelRoom.delete({
+    await prisma.booking.delete({
       where: {
-        roomId: parseInt(id),
-      },
-      include: {
-        images: true,
+        bookingId: parseInt(id),
       },
     })
 
