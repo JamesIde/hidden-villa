@@ -8,5 +8,5 @@ router.post("/login", authController.login)
 router.get("/refreshAccessToken", authController.refreshAccessToken)
 router.get("/revokeRefreshToken", authController.revokeRefreshToken)
 router.get("/profile", isAuthenticated, authController.getLoggedInUser)
-
+router.get("/latestBooking", isAuthenticated, authController.getLatestBooking)
 export = router

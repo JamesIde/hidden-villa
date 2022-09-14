@@ -50,6 +50,7 @@ export class AuthService {
           };
         }),
         tap((user) => {
+          // TODO fix this
           localStorage.setItem('token', JSON.stringify(user.accessToken));
           localStorage.setItem('userID', JSON.stringify(user.id));
           localStorage.setItem('name', JSON.stringify(user.name));

@@ -8,9 +8,8 @@
         <p class="text-center text-sm text-white">
           Find your dream booking today
         </p>
-        <div class="flex flex-row gap-2">
-          <div class="w-max">
-            <!-- TODO Responsiveness -->
+        <div class="flex flex-col gap-2">
+          <div>
             <mat-form-field appearance="fill">
               <mat-label class="text-md text-white">Enter your dates</mat-label>
               <mat-date-range-input [rangePicker]="picker">
@@ -24,9 +23,9 @@
             </mat-form-field>
           </div>
           <div>
-            <mat-form-field class="example-form-field text-white" appearance="fill">
+            <mat-form-field class="example-form-field text-white work" appearance="fill">
               <mat-label class="text-white">Number of Guests</mat-label>
-              <input matInput type="number" formControlName="NoGuests" />
+              <input matInput type="number" formControlName="NoGuests" min="1" />
             </mat-form-field>
           </div>
         </div>

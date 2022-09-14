@@ -22,12 +22,16 @@ const getLoggedInUser = asyncHandler(async (req: Request, res: Response) => {
   return await authService.getLoggedInUser(req, res)
 })
 
+const getLatestBooking = asyncHandler(async (req: Request, res: Response) => {
+  return await authService.getLatestBooking(req, res)
+})
 const authController = {
   register,
   login,
   refreshAccessToken,
   revokeRefreshToken,
   getLoggedInUser,
+  getLatestBooking,
 }
 
 export = authController

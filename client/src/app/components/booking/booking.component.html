@@ -1,1 +1,106 @@
-<p>booking works!</p>
+<div class="xl:w-2/4 md:w-2/4 w-full mx-auto p-2">
+
+    <div *ngIf="isLoading">
+        <!-- <app-loading></app-loading> -->
+    </div>
+    <div *ngIf="!isLoading">
+        <section class="header">
+            <p class="font-bold text-3xl text-center mt-20">
+                Booking Successful!
+            </p>
+        </section>
+        <section class="booking-received text-center">
+            <p class="text-xl">
+                Thank you
+                <span class="font-bold text-xl">
+                    {{bookingDetails.name}}
+                </span> - your booking has been received. See below for more details.
+            </p>
+        </section>
+        <section class="booking-details xl:w-[60%] md:w-[60%] w-full p-2 mx-auto">
+            <p class="font-bold text-center text-xl">
+                Booking Information
+            </p>
+            <div class="flex flex-row justify-between">
+                <p>
+                    Booking Number:
+                </p>
+                <p class="font-bold">
+                    {{bookingDetails.Booking[0].id}}
+                </p>
+            </div>
+            <div class="flex flex-row justify-between">
+                <p>
+                    Booked Room:
+                </p>
+                <p class="font-bold">
+                    {{bookingDetails.Booking[0].bookedRoom.name}}
+                </p>
+            </div>
+            <div class="flex flex-row justify-between">
+                <p>
+                    Email:
+                </p>
+                <p class="font-bold">
+                    {{bookingDetails.Booking[0].customer.email}}
+                </p>
+            </div>
+            <div class="flex flex-row justify-between">
+                <p>
+                    Check In:
+                </p>
+                <p class="font-bold">
+                    {{bookingDetails.Booking[0].checkIn}}
+                </p>
+            </div>
+            <div class="flex flex-row justify-between">
+                <p>
+                    Check Out:
+                </p>
+                <p class="font-bold">
+                    {{bookingDetails.Booking[0].checkOut}}
+                </p>
+            </div>
+            <div class="flex flex-row justify-between">
+                <p>
+                    Length of Stay:
+                </p>
+                <p class="font-bold">
+                    {{bookingDetails.Booking[0].duration}} {{bookingDetails.Booking[0].duration > 1 ? "nights" :
+                    "night"}}
+                </p>
+            </div>
+            <div class="flex flex-row justify-between">
+                <p>
+                    Total Cost:
+                </p>
+                <p class="font-bold">
+                    ${{bookingDetails.Booking[0].totalCost}}
+                </p>
+            </div>
+            <div class="flex flex-row justify-between">
+                <p>
+                    Payment Number:
+                </p>
+                <p class="font-bold">
+                    ${{bookingDetails.Booking[0].paymentID}}
+                </p>
+            </div>
+        </section>
+        <div class="flex flex-col justify-center items-center">
+            <button
+                class="w-[250px] text-md p-2 pl-10 pr-10 bg-purple-400 text-white rounded hover:bg-purple-700 duration-500"
+                [routerLink]="['/']">
+                Return to home
+            </button>
+            <p class="text-center pt-3">
+                Or...
+            </p>
+            <button
+                class="w-[250px] text-md p-2 pl-10 pr-10 bg-blue-400 text-white rounded hover:bg-blue-700 duration-500"
+                [routerLink]="['/profile']">
+                Visit your profile
+            </button>
+        </div>
+    </div>
+</div>

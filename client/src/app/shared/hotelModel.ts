@@ -1,6 +1,6 @@
 export interface BookingInfo {
-  checkIn: string;
-  checkOut: string;
+  checkIn?: string;
+  checkOut?: string;
   NoGuests: number;
   duration: number;
   originalCheckIn?: Date;

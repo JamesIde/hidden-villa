@@ -33,8 +33,8 @@ export class RoomService {
     let originalCheckOut = form.value.checkOut;
     const booking: BookingInfo = {
       // YYYY-MM-DD & Number
-      checkIn,
-      checkOut,
+      // checkIn,
+      // checkOut,
       originalCheckIn,
       originalCheckOut,
       NoGuests,

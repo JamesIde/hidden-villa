@@ -143,19 +143,51 @@ const getLoggedInUser = async (req: Request, res: Response) => {
   }
 }
 
+const getLatestBooking = async (req: Request, res: Response) => {
+  try {
+    // Find the latest booking
+    try {
+      const user = await prisma.user.findUnique({
+        where: {
+          id: req.user.id,
+        },
+        include: {
+          Booking: {
+            include: {
+              bookedRoom: true,
+              customer: true,
+            },
+            orderBy: {
+              bookingId: "desc",
+            },
+            take: 1,
+          },
+        },
+      })
+      if (user) {
+        res.status(200).json(user)
+      }
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        res.status(403).json({ error: error.message })
+      } else {
+        res.status(500).json({ error: error })
+      }
+    }
+  } catch (error) {}
+}
+
 const refreshAccessToken = async (req: Request, res: Response) => {
   const token = req.cookies.bobject
 
   if (!token) {
     res.status(403).json({ ok: false, accessToken: "" })
   }
-  // Split the token
-
   // Attempt to verify the token
   let payload: any
 
   try {
-    payload = jwt.verify(token, process.env.REFRESH_SECRET as string) as any // TODO Fix this
+    payload = jwt.verify(token, process.env.REFRESH_SECRET as any)
   } catch (error: any) {
     res.status(403).json({ ok: false, accessToken: "" })
   }
@@ -208,6 +240,7 @@ const authService = {
   register,
   login,
   getLoggedInUser,
+  getLatestBooking,
   refreshAccessToken,
   revokeRefreshToken,
 }

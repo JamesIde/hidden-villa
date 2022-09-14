@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { StripeService } from 'ngx-stripe';
-import { catchError, switchMap, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, switchMap, tap, throwError } from 'rxjs';
 import { Booking } from '../shared/hotelModel';
 
 @Injectable({
@@ -10,6 +10,7 @@ import { Booking } from '../shared/hotelModel';
 export class BookingService {
   constructor(private http: HttpClient, private stripeService: StripeService) {}
   readonly SERVER_DOMAIN = 'http://localhost:5000';
+  latestBooking = new BehaviorSubject<any>(null);
 
   handleCheckout(booking: Booking) {
     // Create the session, redirect to the session url, subscribe to the result if error
@@ -38,11 +39,22 @@ export class BookingService {
       });
   }
 
+  fetchLatestBooking() {
+    return this.http.get(this.SERVER_DOMAIN + '/api/auth/latestBooking').pipe(
+      catchError((err) => {
+        console.log('Handling error locally and rethrowing it...', err);
+        return throwError(() => err);
+      }),
+      tap((booking) => {
+        this.latestBooking.next(booking);
+      })
+    );
+  }
+
   // Methods in here
   // 1. checkout --> stripe/create-checkout-session
   // 2. Create checkout (needs stripe ID)
   // 3. getBooking --> stripe/get-booking
-  // 4. getBookings --> stripe/get-bookings
   // Methods in backend
   // 1. create-checkout-session
   // 2. get-booking

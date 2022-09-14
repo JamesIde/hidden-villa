@@ -24,6 +24,7 @@ import { NgxStripeModule } from 'ngx-stripe';
 import { environment } from 'src/environments/environment';
 import { BookingComponent } from './components/booking/booking.component';
 import { FooterComponent } from './components/auth/footer/footer.component';
+import { LoadingComponent } from './components/auth/loading/loading.component';
 @NgModule({
   declarations: [
     AppComponent,
