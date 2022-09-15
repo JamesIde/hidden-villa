@@ -1,10 +1,10 @@
 export interface BookingInfo {
-  checkIn?: string;
-  checkOut?: string;
   NoGuests: number;
   duration: number;
   originalCheckIn?: string;
   originalCheckOut?: string;
+  ISOStringCheckIn?: string;
+  ISOStringCheckOut?: string;
 }
 
 export interface HotelRoom {

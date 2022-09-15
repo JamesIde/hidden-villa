@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Todo, User, LoginUser, RegisterUser } from '../shared/userModel';
+import {
+  Todo,
+  User,
+  LoginUser,
+  RegisterUser,
+  UserProfile,
+} from '../shared/userModel';
 import {
   BehaviorSubject,
   catchError,
@@ -131,10 +137,7 @@ export class AuthService {
         console.log('Handling error locally and rethrowing it...', err);
         return throwError(() => err);
       }),
-      map((res) => {
-        return res;
-      }),
-      tap((res) => {
+      tap((res: UserProfile) => {
         this.userProfile.next(res);
         console.log('Tapped here in profile call ->', res);
       })

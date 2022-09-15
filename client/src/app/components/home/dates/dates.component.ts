@@ -7,23 +7,14 @@ import { RoomService } from 'src/app/services/room.service';
   templateUrl: './dates.component.html',
   styleUrls: ['./dates.component.css'],
 })
-
-// TODO Fix date min and max on form
 export class DatesComponent implements OnInit {
-  minDate: Date;
-  maxDate: Date;
-
   datePickerForm!: FormGroup;
 
-  constructor(private roomService: RoomService, private router: Router) {
-    this.minDate = new Date();
-    this.maxDate = new Date();
-    // Max booking is 1 month
-    this.maxDate.setMonth(this.maxDate.getMonth() + 1);
-  }
+  constructor(private roomService: RoomService, private router: Router) {}
 
   handleSubmit() {
     this.roomService.storeBookingInformation(this.datePickerForm);
+    console.log(this.datePickerForm.value);
     this.router.navigate(['/rooms']);
   }
 

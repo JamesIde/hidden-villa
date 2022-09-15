@@ -34,6 +34,8 @@ export class RoomService {
     const originalCheckOut = new Date(form.value.checkOut).toLocaleDateString();
 
     this.booking = {
+      ISOStringCheckIn: checkIn,
+      ISOStringCheckOut: checkOut,
       originalCheckIn,
       originalCheckOut,
       NoGuests,
@@ -47,7 +49,9 @@ export class RoomService {
   // Fetch rooms and emit them in behaviour subject
   getallRooms() {
     // Get booking from LS on page refresh
-    const data = this.booking ? this.booking : this.getBooking();
+    const data = this.bookingInfo.getValue()
+      ? this.bookingInfo.getValue()
+      : this.getStoredBooking();
     return this.http
       .post<HotelRoom[]>(`${this.SERVER_DOMAIN}/api/hotels`, data)
       .pipe(
@@ -93,7 +97,7 @@ export class RoomService {
     return 0;
   }
 
-  getBooking(): BookingInfo {
+  getStoredBooking(): BookingInfo {
     const booking = localStorage.getItem('booking');
     if (booking) {
       const bookingInfo = JSON.parse(booking);
@@ -101,5 +105,12 @@ export class RoomService {
       return bookingInfo;
     }
     return null;
+  }
+
+  formatDateToYMD(date: string) {
+    return date.split('/').reverse().join('-');
+  }
+  formatDateToDMY(date: string) {
+    return date.split('-').reverse().join('/');
   }
 }

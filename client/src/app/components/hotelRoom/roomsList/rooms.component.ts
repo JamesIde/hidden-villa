@@ -13,72 +13,78 @@ export class RoomsComponent implements OnInit, OnDestroy {
   constructor(private roomService: RoomService) {}
   bookingSubscription!: Subscription;
   roomSubscription!: Subscription;
-  bookingInfo!: BookingInfo;
+  bookingInfo!: any;
   rooms!: HotelRoom[];
-  isError!: boolean;
+  isError = false;
+  error!: string;
   isLoading = false;
 
-  originalCheckIn;
-  originalCheckOut;
-
-  originalCheckInYear!: number;
-  originalCheckInMonth!: number;
-  originalCheckInDay!: number;
-
-  originalCheckOutYear!: number;
-  originalCheckOutMonth!: number;
-  originalCheckOutDay!: number;
-
-  campaignOne!: FormGroup;
-
+  // Test
+  checkIn: any;
+  checkOut: any;
+  guests: number;
   ngOnInit(): void {
     this.isLoading = true;
     // Access booking info
     this.bookingSubscription = this.roomService.bookingInfo.subscribe(
       (data) => {
-        this.bookingInfo = data ? data : this.roomService.getBooking();
+        this.bookingInfo = data ? data : this.roomService.getStoredBooking();
+        this.checkIn = this.roomService.formatDateToYMD(
+          this.bookingInfo.originalCheckIn
+        );
+        this.checkOut = this.roomService.formatDateToYMD(
+          this.bookingInfo.originalCheckOut
+        );
+        this.guests = this.bookingInfo.NoGuests;
       }
     );
     // Access available rooms
-    this.roomSubscription = this.roomService
-      .getallRooms()
-      .subscribe((rooms) => {
+    this.roomSubscription = this.roomService.getallRooms().subscribe(
+      (rooms) => {
         this.rooms = rooms;
+        console.log('rooms', this.rooms);
         this.isLoading = false;
-      });
-
-    // Get original year, month and day from booking
-    // Convert string to date
-    this.originalCheckIn = new Date(this.bookingInfo.originalCheckIn);
-    this.originalCheckOut = new Date(this.bookingInfo.originalCheckOut);
-
-    this.originalCheckInYear = this.originalCheckIn.getFullYear();
-    this.originalCheckInMonth = this.originalCheckIn.getMonth();
-    this.originalCheckInDay = this.originalCheckIn.getDate();
-
-    this.originalCheckOutYear = this.originalCheckOut.getFullYear();
-    this.originalCheckOutMonth = this.originalCheckOut.getMonth();
-    this.originalCheckOutDay = this.originalCheckOut.getDate();
-
-    this.campaignOne = new FormGroup({
-      // Set start to original check in year, month, dayt
-      start: new FormControl(
-        new Date(
-          this.originalCheckInYear,
-          this.originalCheckInMonth,
-          this.originalCheckInDay
-        )
-      ),
-      end: new FormControl(
-        new Date(
-          this.originalCheckOutYear,
-          this.originalCheckOutMonth,
-          this.originalCheckOutDay
-        )
-      ),
-    });
+      },
+      (error) => {
+        this.isLoading = false;
+        this.isError = true;
+        this.setErrorTimeout();
+        this.error = error.error.message;
+      }
+    );
   }
   ngOnDestroy(): void {
     this.bookingSubscription.unsubscribe();
+  }
+
+  setErrorTimeout() {
+    setTimeout(() => {
+      this.isError = false;
+    }, 5000);
+  }
+
+  updateBooking() {
+    let newCheckIn = this.roomService.formatDateToDMY(this.checkIn);
+    let newCheckOut = this.roomService.formatDateToDMY(this.checkOut);
+
+    // Calculate duration
+    let duration = this.roomService.calculateDuration(
+      this.checkIn,
+      this.checkOut
+    );
+
+    let newBooking = {
+      originalCheckIn: newCheckIn,
+      originalCheckOut: newCheckOut,
+      duration: duration,
+      NoGuests: this.guests,
+    };
+    this.roomService.bookingInfo.next(newBooking);
+    localStorage.setItem('booking', JSON.stringify(newBooking));
+    this.roomService.getallRooms().subscribe((rooms) => {
+      this.rooms = rooms;
+      console.log('rooms', this.rooms);
+      this.isLoading = false;
+    });
   }
 }

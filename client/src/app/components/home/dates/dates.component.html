@@ -13,10 +13,8 @@
             <mat-form-field appearance="fill">
               <mat-label class="text-md text-white">Enter your dates</mat-label>
               <mat-date-range-input [rangePicker]="picker">
-                <input matStartDate placeholder="Start date" [min]="minDate" [max]="maxDate" class="text-input"
-                  formControlName="checkIn" />
-                <input matEndDate placeholder="End date" [min]="minDate" [max]="maxDate" formControlName="checkOut"
-                  class="text-input" />
+                <input matStartDate placeholder="Start date" class="text-input" formControlName="checkIn" />
+                <input matEndDate placeholder="End date" formControlName="checkOut" class="text-input" />
               </mat-date-range-input>
               <mat-datepicker-toggle matSuffix [for]="picker" class="text-white"></mat-datepicker-toggle>
               <mat-date-range-picker #picker></mat-date-range-picker>

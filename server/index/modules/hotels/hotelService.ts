@@ -7,6 +7,7 @@ const prisma = new PrismaClient()
 // POST /api/hotels
 // Public
 const getHotelRooms = async (req: Request, res: Response) => {
+  console.log(req.body)
   const { originalCheckIn, originalCheckOut, NoGuests } = req.body
   if (!originalCheckIn || !originalCheckOut || !NoGuests) {
     res.status(400).json({
@@ -176,5 +177,3 @@ const hotelService = {
 }
 
 export = hotelService
-
-// TODO - Update a hotel. Low priority, probably as part of admin panel.

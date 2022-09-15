@@ -29,4 +29,29 @@ export interface UserProfile {
   id: string;
   name: string;
   email: string;
+  password: string;
+  Booking: Booking[];
+}
+
+export interface Booking {
+  bookingId: number;
+  checkIn: string;
+  checkOut: string;
+  duration: string;
+  id: number;
+  paymentID: string;
+  phone: string;
+  paymentStatus: string;
+  roomId: number;
+  totalCost: string;
+  bookedRoom: bookedRoom;
+}
+
+export interface bookedRoom {
+  description: string;
+  maxGuests: number;
+  name: string;
+  numberOfBeds: string;
+  price: number;
+  roomId: number;
 }
