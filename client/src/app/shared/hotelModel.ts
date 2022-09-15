@@ -3,8 +3,8 @@ export interface BookingInfo {
   checkOut?: string;
   NoGuests: number;
   duration: number;
-  originalCheckIn?: Date;
-  originalCheckOut?: Date;
+  originalCheckIn?: string;
+  originalCheckOut?: string;
 }
 
 export interface HotelRoom {

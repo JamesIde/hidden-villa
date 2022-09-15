@@ -4,17 +4,65 @@ import { Prisma, PrismaClient } from "@prisma/client"
 const prisma = new PrismaClient()
 
 // Get all hotel rooms
-// GET /api/hotels
+// POST /api/hotels
 // Public
 const getHotelRooms = async (req: Request, res: Response) => {
-  const hotelRooms = await prisma.hotelRoom.findMany({
-    include: {
-      images: true,
-    },
-  })
-  res.status(200).json(hotelRooms)
-}
+  const { originalCheckIn, originalCheckOut, NoGuests } = req.body
+  if (!originalCheckIn || !originalCheckOut || !NoGuests) {
+    res.status(400).json({
+      message: "Please provide start and end dates and number of guests",
+    })
+  }
+  try {
+    const hotelRooms = await prisma.hotelRoom.findMany({
+      where: {
+        NOT: {
+          Booking: {
+            some: {
+              AND: [
+                {
+                  checkIn: {
+                    lte: originalCheckIn,
+                  },
+                },
+                {
+                  checkOut: {
+                    gte: originalCheckOut,
+                  },
+                },
+              ],
+            },
+          },
+        },
+        maxGuests: {
+          gte: parseInt(NoGuests),
+        },
+        AND: {
+          maxGuests: {
+            lte: parseInt(NoGuests) + 1,
+          },
+        },
+      },
+      include: {
+        images: true,
+      },
+    })
 
+    if (!hotelRooms) {
+      res
+        .status(404)
+        .json({ message: "No rooms found with your desired dates" })
+    }
+    res.status(200).json(hotelRooms)
+  } catch (error: any) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      res.status(400).json({ error: error.message })
+    } else {
+      res.status(500).json({ error: error })
+    }
+    console.log(error)
+  }
+}
 // Get single hotel room
 // GET /api/hotels/singleHotel/:id
 // Public

@@ -11,7 +11,7 @@ import {
   throwError,
 } from 'rxjs';
 import { HotelRoomModule } from '../components/hotelRoom/hotelRoom.module';
-import { BookingInfo, HotelRoom } from '../shared/hotelModel';
+import { Booking, BookingInfo, HotelRoom } from '../shared/hotelModel';
 
 @Injectable({
   providedIn: 'root',
@@ -23,39 +23,42 @@ export class RoomService {
   bookingInfo = new BehaviorSubject<BookingInfo>(null);
   availableRooms = new BehaviorSubject<HotelRoom[]>(null);
   selectedRoom = new BehaviorSubject<HotelRoom>(null);
+  booking!: BookingInfo;
 
   storeBookingInformation(form: FormGroup) {
     let checkIn: string = form.value.checkIn.toISOString().split('T')[0];
     let checkOut: string = form.value.checkOut.toISOString().split('T')[0];
     let NoGuests = form.value.NoGuests;
     // Get original dates
-    let originalCheckIn = form.value.checkIn;
-    let originalCheckOut = form.value.checkOut;
-    const booking: BookingInfo = {
-      // YYYY-MM-DD & Number
-      // checkIn,
-      // checkOut,
+    const originalCheckIn = new Date(form.value.checkIn).toLocaleDateString();
+    const originalCheckOut = new Date(form.value.checkOut).toLocaleDateString();
+
+    this.booking = {
       originalCheckIn,
       originalCheckOut,
       NoGuests,
       duration: this.calculateDuration(checkIn, checkOut),
     };
     // Emit it & store
-    this.bookingInfo.next(booking);
-    localStorage.setItem('booking', JSON.stringify(booking));
+    this.bookingInfo.next(this.booking);
+    localStorage.setItem('booking', JSON.stringify(this.booking));
   }
 
   // Fetch rooms and emit them in behaviour subject
   getallRooms() {
-    return this.http.get<HotelRoom[]>(`${this.SERVER_DOMAIN}/api/hotels`).pipe(
-      catchError((err) => {
-        console.log('Handling error locally and rethrowing it...', err);
-        return throwError(() => err);
-      }),
-      tap((rooms) => {
-        this.availableRooms.next(rooms);
-      })
-    );
+    // Get booking from LS on page refresh
+    const data = this.booking ? this.booking : this.getBooking();
+    return this.http
+      .post<HotelRoom[]>(`${this.SERVER_DOMAIN}/api/hotels`, data)
+      .pipe(
+        catchError((err) => {
+          console.log('Handling error locally and rethrowing it...', err);
+          return throwError(() => err);
+        }),
+        tap((rooms) => {
+          this.availableRooms.next(rooms);
+        })
+      );
   }
   bookRoom(id: number) {
     return this.http
