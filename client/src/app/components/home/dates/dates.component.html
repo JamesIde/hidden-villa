@@ -9,17 +9,20 @@
           Find your dream booking today
         </p>
         <div class="flex flex-col gap-2">
-          <div>
-            <mat-form-field appearance="fill">
-              <mat-label class="text-md text-white">Enter your dates</mat-label>
-              <mat-date-range-input [rangePicker]="picker">
-                <input matStartDate placeholder="Start date" class="text-input" formControlName="checkIn" />
-                <input matEndDate placeholder="End date" formControlName="checkOut" class="text-input" />
-              </mat-date-range-input>
-              <mat-datepicker-toggle matSuffix [for]="picker" class="text-white"></mat-datepicker-toggle>
-              <mat-date-range-picker #picker></mat-date-range-picker>
-            </mat-form-field>
-          </div>
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label class="text-white">Check In</mat-label>
+            <input matInput [min]="minDate" [matDatepicker]="checkIn" formControlName="checkIn" class="text-white">
+            <mat-hint class="text-white">MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="checkIn"></mat-datepicker-toggle>
+            <mat-datepicker #checkIn></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label class="text-white">Check Out</mat-label>
+            <input matInput [min]="minDate" [matDatepicker]="checkOut" formControlName="checkOut" class="text-white">
+            <mat-hint class="text-white">MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="checkOut"></mat-datepicker-toggle>
+            <mat-datepicker #checkOut></mat-datepicker>
+          </mat-form-field>
           <div>
             <mat-form-field class="example-form-field text-white work" appearance="fill">
               <mat-label class="text-white">Number of Guests</mat-label>

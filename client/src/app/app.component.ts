@@ -14,31 +14,9 @@ import { AuthService } from './services/auth.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  title = 'Ng-Teams';
-  loading = false;
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
     this.authService.autologin();
-  }
-
-  constructor(private router: Router, private authService: AuthService) {
-    this.router.events.subscribe((e: any) => {
-      switch (true) {
-        case event instanceof NavigationStart: {
-          this.loading = true;
-          break;
-        }
-
-        case event instanceof NavigationEnd:
-        case event instanceof NavigationCancel:
-        case event instanceof NavigationError: {
-          this.loading = false;
-          break;
-        }
-        default: {
-          break;
-        }
-      }
-    });
   }
 }

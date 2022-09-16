@@ -1,127 +1,151 @@
-<div *ngIf="isLoading" class="flex justify-center">
-  <app-loading></app-loading>
-</div>
-<div class="mx-auto xl:w-7/12 grid xl:grid-cols-2 md:grid-cols-2 grid-cols-1" *ngIf="!isLoading">
-  <div class="w-full" id="room-details">
-    <button class="xl:ml-0 md:ml-0 ml-2 p-2 bg-blue-500 text-white rounded hover:bg-blue-900 hover: duration-500 mb-3"
-      routerLink="/rooms">
-      Return to search
-    </button>
-    <img src="{{ roomDetails.images[0].image }}" alt="" />
-    <div>
-      <p class="text-center font-bold text-xl pt-3 pb-1">
-        {{ roomDetails.name }}
-      </p>
-      <div class="flex flex-row justify-evenly">
-        <div class="inline-flex">
-          <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="face"></mat-icon>
-          <p class="pt-[4px] pl-1">{{ roomDetails.maxGuests }} guests</p>
-        </div>
-        <div class="inline-flex">
-          <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="bed"></mat-icon>
-          <p class="pt-[4px] pl-1">
-            {{ roomDetails.numberOfBeds }}
-          </p>
-        </div>
-      </div>
-      <p class="text-lg text-center mt-5 mb-5">
-        About this room
-      </p>
-      <p class="pl-5 pr-2 text-sm text-gray-500 leading-2">
-        {{ roomDetails.description }}
-      </p>
-    </div>
+<div class="h-[90vh]">
+
+  <div *ngIf="isLoading" class="flex justify-center">
+    <app-loading></app-loading>
   </div>
-  <div id="form" class="p-10">
-    <div id="room-details">
-      <p class="font-bold text-center pt-4 mb text-xl">Confirm your selection</p>
-      <div class="flex flex-row justify-between">
-        <p>
-          Room
-        </p>
-        <p class="font-bold">
+  <div class="mx-auto xl:w-7/12 grid xl:grid-cols-2 md:grid-cols-2 grid-cols-1" *ngIf="!isLoading">
+    <div class="w-full" id="room-details">
+      <button class="xl:ml-0 md:ml-0 ml-2 p-2 bg-blue-500 text-white rounded hover:bg-blue-900 hover: duration-500 mb-3"
+        routerLink="/rooms">
+        Return to search
+      </button>
+      <img src="{{ roomDetails.images[0].image }}" alt="" />
+      <div>
+        <p class="text-center font-bold text-xl pt-3 pb-1">
           {{ roomDetails.name }}
         </p>
-      </div>
-      <div class="flex flex-row justify-between">
-        <p>
-          Check In
+        <div class="flex flex-row justify-evenly">
+          <div class="inline-flex">
+            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="face"></mat-icon>
+            <p class="pt-[4px] pl-1">{{ roomDetails.maxGuests }} guests</p>
+          </div>
+          <div class="inline-flex">
+            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="bed"></mat-icon>
+            <p class="pt-[4px] pl-1">
+              {{ roomDetails.numberOfBeds }}
+            </p>
+          </div>
+        </div>
+        <p class="text-lg text-center mt-5 mb-5">
+          About this room
         </p>
-        <p class="font-bold">
-          {{ dateDetails.originalCheckIn }}
-        </p>
-      </div>
-      <div class="flex flex-row justify-between">
-        <p>
-          Check Out
-        </p>
-        <p class="font-bold">
-          {{ dateDetails.originalCheckOut }}
-        </p>
-      </div>
-      <div class="flex flex-row justify-between">
-        <p>
-          Duration
-        </p>
-        <p class="font-bold">
-          {{ dateDetails.duration }} {{ dateDetails.duration > 1 ? 'nights' : 'night' }}
+        <p class="pl-5 pr-2 text-sm text-gray-500 leading-2">
+          {{ roomDetails.description }}
         </p>
       </div>
-      <div class="flex flex-row justify-between">
-        <p>
-          Total Cost
-        </p>
-        <p class="font-bold">
-          {{ totalCost | currency: 'AUD' }}
-        </p>
-      </div>
-
     </div>
-    <p class="text-center font-bold mb-3 text-xl">Enter your personal details</p>
-    <form [formGroup]="userInfo" (ngSubmit)="handleBookingSubmit()">
-      <label class="block mb-4">
-        <span class="text-gray-700">First Name</span>
-        <input type="text"
-          class="mt-0 w-full px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-black" placeholder=""
-          formControlName="firstName" />
-      </label>
-      <span *ngIf="userInfo.get('firstName').invalid && userInfo.get('firstName').touched">
-        <p class="text-red-500 text-xs italic">Please enter your first name.</p>
-      </span>
-      <label class="block mb-4">
-        <span class="text-gray-700">Last Name</span>
-        <input type="text"
-          class="mt-0 w-full px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-black" placeholder=""
-          formControlName="lastName" />
-      </label>
-      <span *ngIf="userInfo.get('lastName').invalid && userInfo.get('lastName').touched">
-        <p class="text-red-500 text-xs italic">Please enter your last name.</p>
-      </span>
-      <label class="block mb-4">
-        <span class="text-gray-700">Email</span>
-        <input type="email"
-          class="mt-0 w-full px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-black" placeholder=""
-          formControlName="email" />
-      </label>
-      <span *ngIf="userInfo.get('email').invalid && userInfo.get('email').touched">
-        <p class="text-red-500 text-xs italic">Please enter your email.</p>
-      </span>
-      <label class="block mb-4">
-        <span class="text-gray-700">Phone Number</span>
-        <input type="number"
-          class="mt-0 w-full px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-black" placeholder=""
-          formControlName="phone" />
-      </label>
-      <span *ngIf="userInfo.get('phone').invalid && userInfo.get('phone').touched" class="">
-        <p class="text-red-500 text-xs italic mt-5">Please enter your phone number.</p>
-      </span>
-      <div class="text-center mt-4">
-        <button mat-raised-button color="primary" type="submit" [disabled]="userInfo.invalid"
-          class="text-black text-md  mb-2">
-          Proceed to payment
-        </button>
-        <!-- TODO Disable here until a user logs in. Potential: Auto fill the form with user profile information. Header component will need reworking. -->
+    <div id="form" class="p-10">
+      <div id="room-details">
+        <p class="font-bold text-center pt-4 mb text-xl">Confirm your selection</p>
+        <div class="flex flex-row justify-between">
+          <p>
+            Room
+          </p>
+          <p class="font-bold">
+            {{ roomDetails.name }}
+          </p>
+        </div>
+        <div class="flex flex-row justify-between">
+          <p>
+            Check In
+          </p>
+          <p class="font-bold">
+            {{ dateDetails.originalCheckIn }}
+          </p>
+        </div>
+        <div class="flex flex-row justify-between">
+          <p>
+            Check Out
+          </p>
+          <p class="font-bold">
+            {{ dateDetails.originalCheckOut }}
+          </p>
+        </div>
+        <div class="flex flex-row justify-between">
+          <p>
+            Duration
+          </p>
+          <p class="font-bold">
+            {{ dateDetails.duration }} {{ dateDetails.duration > 1 ? 'nights' : 'night' }}
+          </p>
+        </div>
+        <div class="flex flex-row justify-between">
+          <p>
+            Total Cost
+          </p>
+          <p class="font-bold">
+            {{ totalCost }}
+          </p>
+        </div>
+
       </div>
-    </form>
+      <p class="text-center font-bold mb-3 text-xl">Enter your personal details</p>
+      <span *ngIf="isLogged">
+        <form [formGroup]="userInfo" (ngSubmit)="handleBookingSubmit()">
+          <label class="block mb-4">
+            <span class="text-gray-700">First Name</span>
+            <input type="text"
+              class="mt-0 w-full px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-black"
+              placeholder="" formControlName="firstName" />
+          </label>
+          <span *ngIf="userInfo.get('firstName').invalid && userInfo.get('firstName').touched">
+            <p class="text-red-500 text-xs italic">Please enter your first name.</p>
+          </span>
+          <label class="block mb-4">
+            <span class="text-gray-700">Last Name</span>
+            <input type="text"
+              class="mt-0 w-full px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-black"
+              placeholder="" formControlName="lastName" />
+          </label>
+          <span *ngIf="userInfo.get('lastName').invalid && userInfo.get('lastName').touched">
+            <p class="text-red-500 text-xs italic">Please enter your last name.</p>
+          </span>
+          <label class="block mb-4">
+            <span class="text-gray-700">Email</span>
+            <input type="email"
+              class="mt-0 w-full px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-black"
+              placeholder="" formControlName="email" />
+          </label>
+          <span *ngIf="userInfo.get('email').invalid && userInfo.get('email').touched">
+            <p class="text-red-500 text-xs italic">Please enter your email.</p>
+          </span>
+          <label class="block mb-4">
+            <span class="text-gray-700">Phone Number</span>
+            <input type="number"
+              class="mt-0 w-full px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-black"
+              placeholder="" formControlName="phone" />
+          </label>
+          <span *ngIf="userInfo.get('phone').invalid && userInfo.get('phone').touched" class="">
+            <p class="text-red-500 text-xs italic mt-5">Please enter your phone number.</p>
+          </span>
+          <div class="text-center mt-4">
+            <button mat-raised-button color="primary" type="submit" [disabled]="userInfo.invalid"
+              class="text-black text-md  mb-2">
+              Proceed to payment
+            </button>
+          </div>
+        </form>
+      </span>
+      <span *ngIf="!isLogged">
+        <p class="text-center font-lg">
+          Please ensure you have an account before making a booking.
+        </p>
+        <div class="flex flex-col justify-center items-center">
+          <button
+            class="w-[250px] text-md p-2 pl-10 pr-10 bg-purple-400 text-white rounded hover:bg-purple-700 duration-500"
+            [routerLink]="['/login']">
+            Login
+          </button>
+          <p class="pt-2">
+            Or
+          </p>
+          <button
+            class="w-[250px] text-md p-2 pl-10 pr-10 bg-blue-400 text-white rounded hover:bg-blue-700 duration-500"
+            [routerLink]="['/register']">
+            Register
+          </button>
+        </div>
+      </span>
+    </div>
   </div>
 </div>

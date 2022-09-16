@@ -5,9 +5,9 @@
             <div class="text-center font-bold" *ngIf="isError">
                 {{error}}
             </div>
-            <!-- <div class="text-center" *ngIf="isLoading">
+            <div class="text-center" *ngIf="isLoading">
                 <app-loading></app-loading>
-            </div> -->
+            </div>
             <div class="grid grid-cols-1 gap-6">
                 <form [formGroup]="userForm" (ngSubmit)="handleSubmit()">
                     <label class="block">

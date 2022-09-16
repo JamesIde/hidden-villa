@@ -1,7 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { StripeService } from 'ngx-stripe';
-import { BehaviorSubject, catchError, switchMap, tap, throwError } from 'rxjs';
+import {
+  BehaviorSubject,
+  catchError,
+  Observable,
+  switchMap,
+  tap,
+  throwError,
+} from 'rxjs';
 import { Booking } from '../shared/hotelModel';
 
 @Injectable({
@@ -51,12 +58,14 @@ export class BookingService {
     );
   }
 
-  // Methods in here
-  // 1. checkout --> stripe/create-checkout-session
-  // 2. Create checkout (needs stripe ID)
-  // 3. getBooking --> stripe/get-booking
-  // Methods in backend
-  // 1. create-checkout-session
-  // 2. get-booking
-  // 3. get-bookings
+  getOrderDetails(paymentID: string) {
+    return this.http
+      .get(this.SERVER_DOMAIN + '/api/payment/booking/' + paymentID)
+      .pipe(
+        catchError((err) => {
+          console.log('Handling error locally and rethrowing it...', err);
+          return throwError(() => err);
+        })
+      );
+  }
 }

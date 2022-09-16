@@ -7,10 +7,11 @@ import { RegisterComponent } from './register/register.component';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { ProfileComponent } from './profile/profile.component';
-import { FooterComponent } from './footer/footer.component';
+import { SharedModule } from '../shared/loading/shared.module';
 @NgModule({
   declarations: [LoginComponent, RegisterComponent, ProfileComponent],
   imports: [
+    SharedModule,
     AuthRoutingModule,
     RouterModule,
     FormsModule,

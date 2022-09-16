@@ -132,9 +132,27 @@ const createBooking = async (
   }
 }
 
+const getBooking = async (req: Request, res: Response) => {
+  try {
+    const booking = await prisma.booking.findFirst({
+      where: {
+        paymentID: req.params.payment,
+      },
+      include: {
+        bookedRoom: true,
+        customer: true,
+      },
+    })
+    res.status(200).json(booking)
+  } catch (error) {
+    res.status(500).json({ error: error })
+  }
+}
+
 const bookingService = {
   createCheckoutSession,
   paymentWebhook,
+  getBooking,
 }
 
 export = bookingService

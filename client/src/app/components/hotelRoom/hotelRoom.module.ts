@@ -8,7 +8,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { RoomService } from 'src/app/services/room.service';
-import { LoadingComponent } from '../auth/loading/loading.component';
 import { HotelRoomRoutingModule } from './hotelRoom-routing.module';
 import { RoomsComponent } from './roomsList/rooms.component';
 import { RoomComponent } from './room/room.component';
@@ -20,20 +19,22 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { SharedModule } from '../shared/loading/shared.module';
+import { OrderComponent } from './order/order.component';
 @NgModule({
   declarations: [
     RoomsComponent,
     RoomComponent,
     BookRoomComponent,
-    LoadingComponent,
+    OrderComponent,
   ],
   imports: [
+    SharedModule,
     HotelRoomRoutingModule,
+    CommonModule,
     RouterModule,
     ReactiveFormsModule,
     FormsModule,
-    CommonModule,
-    BrowserModule,
     MatButtonModule,
     MatDatepickerModule,
     MatFormFieldModule,

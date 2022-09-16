@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { BookingService } from 'src/app/services/booking.service';
@@ -15,11 +16,13 @@ export class BookRoomComponent implements OnInit {
   constructor(
     private roomService: RoomService,
     private bookingService: BookingService,
-    private authService: AuthService
+    private authService: AuthService,
+    private route: ActivatedRoute
   ) {}
   // Subscriptions
   selectedRoom!: Subscription;
   bookingOrder!: Subscription;
+  userStatus!: Subscription;
   // Local state
   roomDetails!: HotelRoom;
   dateDetails!: BookingInfo;
@@ -27,6 +30,8 @@ export class BookRoomComponent implements OnInit {
   // Contact Info form
   userInfo!: FormGroup;
   isLoading = false;
+  // User status
+  isLogged = false;
 
   // Booking method
   handleBookingSubmit() {
@@ -50,23 +55,26 @@ export class BookRoomComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Access the room by quering off id params
     this.isLoading = true;
-    // Subscribe to selected room
-    this.selectedRoom = this.roomService.selectedRoom.subscribe((room) => {
-      this.roomDetails = room;
-      this.isLoading = false;
-    });
-    // Subscribe to get booking information
-    this.bookingOrder = this.roomService.bookingInfo.subscribe((dates) => {
-      // CheckIn, out, duration
-      this.dateDetails = dates ? dates : this.roomService.getStoredBooking();
-      console.log(this.dateDetails);
-      // Total cost
-      this.totalCost = this.roomService.calculateTotalCost(
-        this.dateDetails.duration,
-        this.roomDetails.price
-      );
-    });
+    this.selectedRoom = this.roomService
+      .bookRoom(this.route.snapshot.params['id'])
+      .subscribe((room) => {
+        this.roomDetails = room;
+        this.isLoading = false;
+        // After setting the room, fetch the booking information
+        this.bookingOrder = this.roomService.bookingInfo.subscribe((dates) => {
+          this.dateDetails = dates
+            ? dates
+            : this.roomService.getStoredBooking();
+          // Then calculate the cost
+          this.totalCost = this.roomService.calculateTotalCost(
+            this.dateDetails.duration,
+            this.roomDetails.price
+          );
+          this.isLoading = false;
+        });
+      });
 
     // Initialise the form
     this.userInfo = new FormGroup({
@@ -82,6 +90,10 @@ export class BookRoomComponent implements OnInit {
       phone: new FormControl(null, {
         validators: [Validators.required],
       }),
+    });
+
+    this.userStatus = this.authService.token.subscribe((token) => {
+      this.isLogged = token ? true : false;
     });
   }
 }

@@ -11,20 +11,15 @@ import { AuthInterceptor } from './components/auth/auth.interceptor';
 import { AuthModule } from './components/auth/auth.module';
 import { IndexComponent } from './components/home/index/index.component';
 import { DatesComponent } from './components/home/dates/dates.component';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatInputModule } from '@angular/material/input';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { HotelRoomModule } from './components/hotelRoom/hotelRoom.module';
 import { RoomService } from './services/room.service';
+import { HotelRoomModule } from './components/hotelRoom/hotelRoom.module';
 import { NgxStripeModule } from 'ngx-stripe';
 import { environment } from 'src/environments/environment';
 import { BookingComponent } from './components/booking/booking.component';
-import { FooterComponent } from './components/auth/footer/footer.component';
-import { LoadingComponent } from './components/auth/loading/loading.component';
+import { SharedModule } from './components/shared/loading/shared.module';
+import { MaterialModule } from './components/shared/material.module';
+import { CommonModule } from '@angular/common';
+import { FooterComponent } from './components/shared/footer/footer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,25 +30,20 @@ import { LoadingComponent } from './components/auth/loading/loading.component';
     FooterComponent,
   ],
   imports: [
+    MaterialModule,
+    // SharedModule,
     BrowserModule,
+    CommonModule,
     HttpClientModule,
     AppRoutingModule,
     AuthModule,
     HotelRoomModule,
+    SharedModule,
     ReactiveFormsModule,
-    MatDatepickerModule,
-    MatFormFieldModule,
-    MatNativeDateModule,
-    MatInputModule,
-    BrowserAnimationsModule,
-    MatIconModule,
-    MatButtonModule,
     NgxStripeModule.forRoot(environment.STRIPE_API_KEY),
   ],
   providers: [
     AuthService,
-    // RoomService,
-    // TodoResolverService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],

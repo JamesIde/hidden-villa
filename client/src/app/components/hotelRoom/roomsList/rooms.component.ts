@@ -79,6 +79,7 @@ export class RoomsComponent implements OnInit, OnDestroy {
       duration: duration,
       NoGuests: this.guests,
     };
+
     this.roomService.bookingInfo.next(newBooking);
     localStorage.setItem('booking', JSON.stringify(newBooking));
     this.roomService.getallRooms().subscribe((rooms) => {
@@ -88,3 +89,10 @@ export class RoomsComponent implements OnInit, OnDestroy {
     });
   }
 }
+
+/*
+How does the update room work?
+By emitting a new value in the roomService bookingInfo subject,
+the component rerenders because the bookingInfo is subscribed to, this updates the dates in the UI.
+However, we must call the getallRooms() method again to get the updated rooms.
+*/

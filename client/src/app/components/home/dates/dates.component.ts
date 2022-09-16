@@ -9,7 +9,8 @@ import { RoomService } from 'src/app/services/room.service';
 })
 export class DatesComponent implements OnInit {
   datePickerForm!: FormGroup;
-
+  // Min date
+  minDate: Date;
   constructor(private roomService: RoomService, private router: Router) {}
 
   handleSubmit() {
@@ -19,6 +20,7 @@ export class DatesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.minDate = new Date();
     this.datePickerForm = new FormGroup({
       checkIn: new FormControl<Date | null>(null, [Validators.required]),
       checkOut: new FormControl<Date | null>(null, [Validators.required]),

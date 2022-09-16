@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
         console.log(data);
         this.isLoading = false;
         console.log('Logged in');
-        this.router.navigate(['/profile']);
+        this.router.navigate(['/']);
         this.userForm.reset();
         // Navigate to list of todo page
       },

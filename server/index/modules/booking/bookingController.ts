@@ -12,9 +12,14 @@ const paymentWebhook = asyncHandler(async (req: Request, res: Response) => {
   return await bookingService.paymentWebhook(req, res)
 })
 
+const getBooking = asyncHandler(async (req: Request, res: Response) => {
+  return await bookingService.getBooking(req, res)
+})
+
 const bookingController = {
   createCheckoutSession,
   paymentWebhook,
+  getBooking,
 }
 
 export = bookingController

@@ -101,7 +101,6 @@ export class RoomService {
     const booking = localStorage.getItem('booking');
     if (booking) {
       const bookingInfo = JSON.parse(booking);
-      console.log('from ls: ', bookingInfo);
       return bookingInfo;
     }
     return null;

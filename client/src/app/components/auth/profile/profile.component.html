@@ -1,133 +1,58 @@
-<div class="xl:w-3/4 md:w-2/4 w-full mx-auto p-2" *ngIf="!isLoading">
-  <div class="xl:w-1/2  w-full mx-auto">
-    <p class="text-xl text-center font-bold">Recent Bookings</p>
-    <table class="table-auto w-full mx-auto p-2">
-      <thead class="text-left">
-        <tr>
-          <th>
-            Booking #
-          </th>
-          <th>
-            Check In
-          </th>
-          <th>
-            Check Out
-          </th>
-          <th>
-            Total Cost
-          </th>
-          <th>
+<div class="h-[90vh]">
 
-          </th>
-        </tr>
-      </thead>
-      <tbody *ngFor="let booking of userProfile.Booking; index as i" [attr.data-index]="i">
-        <tr>
-          <td class="border-b-2">
-            {{booking.bookingId}}
-          </td>
-          <td class="border-b-2">
-            {{booking.checkIn}}
-          </td>
-          <td class="border-b-2">
-            {{booking.checkOut}}
-          </td>
-          <td class="border-b-2">
-            ${{booking.totalCost}}
-            <!-- {{booking.bookedRoom.name}} -->
-          </td>
-          <td class="border-b-2 pb-4 pt-4">
-            <label for="my-modal"
-              class="modal-button bg-purple-500 p-2 mt-2 mb-3 w-full text-white rounded hover:bg-purple-800 duration-500 hover:cursor-pointer">
-              View
-            </label>
-          </td>
-        </tr>
-        <input type="checkbox" id="my-modal" class="modal-toggle" />
-        <!-- TODO Order page -->
-        <!-- <div class="modal">
-          <div class="modal-box">
-            <p class="font-bold text-center text-xl">
-              Booking Information
-            </p>
-            <div class="flex flex-row justify-between">
-              <p>
-                Booking Number:
-              </p>
-              <p class="font-bold">
-                {{booking.bookingId}}
-              </p>
-            </div>
-            <div class="flex flex-row justify-between">
-              <p>
-                Booked Room:
-              </p>
-              <p class="font-bold">
-                {{booking.bookedRoom.name}}
-              </p>
-            </div>
-            <div class="flex flex-row justify-between">
-              <p>
-                Email:
-              </p>
-              <p class="font-bold">
-                {{userProfile.email}}
-              </p>
-            </div>
-            <div class="flex flex-row justify-between">
-              <p>
-                Phone:
-              </p>
-              <p class="font-bold">
-                {{booking.phone}}
-              </p>
-            </div>
-            <div class="flex flex-row justify-between">
-              <p>
-                Check In:
-              </p>
-              <p class="font-bold">
-                {{booking.checkIn}}
-              </p>
-            </div>
-            <div class="flex flex-row justify-between">
-              <p>
-                Check Out:
-              </p>
-              <p class="font-bold">
-                {{booking.checkOut}}
-              </p>
-            </div>
-            <div class="flex flex-row justify-between">
-              <p>
-                Length of Stay:
-              </p>
-              <p class="font-bold">
-                {{booking.duration}}
-              </p>
-            </div>
-            <div class="flex flex-row justify-between">
-              <p>
-                Total Cost:
-              </p>
-              <p class="font-bold">
-                ${{booking.totalCost}}
-              </p>
-            </div>
-            <div class="flex flex-row justify-between">
-              <p>
-                Payment Number:
-              </p>
-              <p class="font-bold">
-                {{booking.paymentID}}
-              </p>
-            </div>
-            <div class="modal-action">
-              <label for="my-modal" class="hover:cursor-pointer">Close</label>
-            </div>
-          </div>
-        </div> -->
-      </tbody>
-    </table>
+  <div *ngIf="isLoading">
+    <app-loading></app-loading>
+  </div>
+  <div class="xl:w-3/4 md:w-2/4 w-full mx-auto p-2 h-[90vh]" *ngIf="!isLoading">
+    <div class="xl:w-1/2  w-full mx-auto">
+      <p class="text-xl text-center font-bold">Recent Bookings</p>
+      <table class="table-auto w-full mx-auto p-2">
+        <thead class="text-left">
+          <tr>
+            <th>
+              Booking #
+            </th>
+            <th>
+              Check In
+            </th>
+            <th>
+              Check Out
+            </th>
+            <th>
+              Total Cost
+            </th>
+            <th>
+
+            </th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let booking of userProfile.Booking; index as i" [attr.data-index]="i">
+          <tr>
+            <td class="border-b-2">
+              {{booking.bookingId}}
+            </td>
+            <td class="border-b-2">
+              {{booking.checkIn}}
+            </td>
+            <td class="border-b-2">
+              {{booking.checkOut}}
+            </td>
+            <td class="border-b-2">
+              ${{booking.totalCost}}
+              <!-- {{booking.bookedRoom.name}} -->
+            </td>
+            <td class="border-b-2 pb-4 pt-4">
+              <label
+                class="modal-button bg-purple-500 p-2 mt-2 mb-3 w-full text-white rounded hover:bg-purple-800 duration-500 hover:cursor-pointer"
+                [routerLink]="['/profile/booking', booking.paymentID]">
+                View Order
+              </label>
+            </td>
+          </tr>
+          <input type="checkbox" id="my-modal" class="modal-toggle" />
+
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

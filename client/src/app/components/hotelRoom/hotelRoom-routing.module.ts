@@ -4,6 +4,7 @@ import { LoadRoomResolver } from 'src/app/services/resolvers/singleRoomResolver.
 import { AvailableRoomResolver } from 'src/app/services/resolvers/allRoomsResolver.service';
 import { RoomsComponent } from './roomsList/rooms.component';
 import { BookRoomComponent } from './bookRoom/bookRoom.component';
+import { OrderComponent } from './order/order.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,10 @@ const routes: Routes = [
     path: 'room/:id',
     component: BookRoomComponent,
     resolve: [LoadRoomResolver],
+  },
+  {
+    path: 'profile/booking/:paymentID',
+    component: OrderComponent,
   },
 ];
 @NgModule({
