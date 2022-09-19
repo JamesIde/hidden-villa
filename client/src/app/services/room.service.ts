@@ -12,6 +12,7 @@ import {
 } from 'rxjs';
 import { HotelRoomModule } from '../components/hotelRoom/hotelRoom.module';
 import { Booking, BookingInfo, HotelRoom } from '../shared/hotelModel';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +20,6 @@ import { Booking, BookingInfo, HotelRoom } from '../shared/hotelModel';
 export class RoomService {
   constructor(private http: HttpClient) {}
 
-  readonly SERVER_DOMAIN = 'http://localhost:5000';
   bookingInfo = new BehaviorSubject<BookingInfo>(null);
   availableRooms = new BehaviorSubject<HotelRoom[]>(null);
   selectedRoom = new BehaviorSubject<HotelRoom>(null);
@@ -43,6 +43,7 @@ export class RoomService {
     };
     // Emit it & store
     this.bookingInfo.next(this.booking);
+    console.log(this.booking);
     localStorage.setItem('booking', JSON.stringify(this.booking));
   }
 
@@ -53,7 +54,7 @@ export class RoomService {
       ? this.bookingInfo.getValue()
       : this.getStoredBooking();
     return this.http
-      .post<HotelRoom[]>(`${this.SERVER_DOMAIN}/api/hotels`, data)
+      .post<HotelRoom[]>(`${environment.SERVER_DOMAIN}/api/hotels`, data)
       .pipe(
         catchError((err) => {
           console.log('Handling error locally and rethrowing it...', err);
@@ -66,7 +67,7 @@ export class RoomService {
   }
   bookRoom(id: number) {
     return this.http
-      .get<HotelRoom>(`${this.SERVER_DOMAIN}/api/hotels/${id}`)
+      .get<HotelRoom>(`${environment.SERVER_DOMAIN}/api/hotels/${id}`)
       .pipe(
         catchError((err) => {
           console.log('Handling error locally and rethrowing it...', err);

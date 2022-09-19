@@ -29,6 +29,6 @@ app.use("/api/hotels", require("./modules/hotels/hotelRoutes"));
 app.use("/api/auth", require("./modules/auth/authRoutes"));
 app.use("/api/payment", require("./modules/booking/bookingRoutes"));
 
-app.listen(process.env.PORT, () => {
+app.listen(port, () => {
   console.log(`🚀 Server started on port ${port}`.cyan.underline);
 });

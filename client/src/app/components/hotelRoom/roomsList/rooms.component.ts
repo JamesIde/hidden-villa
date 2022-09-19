@@ -36,6 +36,7 @@ export class RoomsComponent implements OnInit, OnDestroy {
           this.bookingInfo.originalCheckOut
         );
         this.guests = this.bookingInfo.NoGuests;
+        console.log(this.checkIn, this.checkOut, this.guests);
       }
     );
     // Access available rooms
@@ -48,8 +49,8 @@ export class RoomsComponent implements OnInit, OnDestroy {
       (error) => {
         this.isLoading = false;
         this.isError = true;
-        this.setErrorTimeout();
-        this.error = error.error.message;
+        this.error = error.message;
+        console.log(this.error);
       }
     );
   }
@@ -58,9 +59,9 @@ export class RoomsComponent implements OnInit, OnDestroy {
   }
 
   setErrorTimeout() {
-    setTimeout(() => {
-      this.isError = false;
-    }, 5000);
+    // setTimeout(() => {
+    //   this.isError = false;
+    // }, 5000);
   }
 
   updateBooking() {

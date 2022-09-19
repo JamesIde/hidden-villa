@@ -18,6 +18,7 @@ import {
 } from 'rxjs';
 import * as qs from 'qs';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
@@ -29,12 +30,10 @@ export class AuthService {
   userProfile = new Subject<any>();
   constructor(private http: HttpClient, private router: Router) {}
 
-  readonly SERVER_DOMAIN = 'http://localhost:5000';
-
   loginUser(user: LoginUser): Observable<User> {
     const strUser = qs.stringify(user);
     return this.http
-      .post<User>(this.SERVER_DOMAIN + '/api/auth/login', strUser, {
+      .post<User>(environment.SERVER_DOMAIN + '/api/auth/login', strUser, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
         },
@@ -76,12 +75,16 @@ export class AuthService {
     };
     const strRegisterUser = qs.stringify(formData);
     return this.http
-      .post<User>(this.SERVER_DOMAIN + '/api/auth/register', strRegisterUser, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
-        },
-        withCredentials: true,
-      })
+      .post<User>(
+        environment.SERVER_DOMAIN + '/api/auth/register',
+        strRegisterUser,
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+          },
+          withCredentials: true,
+        }
+      )
       .pipe(
         catchError((err) => {
           console.log('Handling error locally and rethrowing it...', err);
@@ -115,14 +118,6 @@ export class AuthService {
     this.token.next(token);
   }
 
-  // Auto logout feature
-  // autoLogout(expirationDuration: number) {
-  //   setTimeout(() => {
-  //     this.logout();
-  //     window.alert("You've been logged out due to inactivity");
-  //   }, expirationDuration);
-  // }
-
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('userID');
@@ -132,20 +127,21 @@ export class AuthService {
   }
 
   getProfile() {
-    return this.http.get(this.SERVER_DOMAIN + '/api/auth/profile', {}).pipe(
-      catchError((err) => {
-        console.log('Handling error locally and rethrowing it...', err);
-        return throwError(() => err);
-      }),
-      tap((res: UserProfile) => {
-        this.userProfile.next(res);
-        console.log('Tapped here in profile call ->', res);
-      })
-    );
+    return this.http
+      .get(environment.SERVER_DOMAIN + '/api/auth/profile', {})
+      .pipe(
+        catchError((err) => {
+          console.log('Handling error locally and rethrowing it...', err);
+          return throwError(() => err);
+        }),
+        tap((res: UserProfile) => {
+          this.userProfile.next(res);
+          console.log('Tapped here in profile call ->', res);
+        })
+      );
   }
 
   // Used for HTTP Interceptors
-
   getAccessToken(): string {
     return this.token.value;
   }

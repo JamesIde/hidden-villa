@@ -20,6 +20,7 @@ import { SharedModule } from './components/shared/loading/shared.module';
 import { MaterialModule } from './components/shared/material.module';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from './components/shared/footer/footer.component';
+import { PageNotFoundComponent } from './components/shared/page-not-found/page-not-found.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,6 +29,7 @@ import { FooterComponent } from './components/shared/footer/footer.component';
     DatesComponent,
     BookingComponent,
     FooterComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     MaterialModule,

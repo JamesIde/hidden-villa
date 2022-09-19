@@ -10,20 +10,19 @@ import {
   throwError,
 } from 'rxjs';
 import { Booking } from '../shared/hotelModel';
-
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
 export class BookingService {
   constructor(private http: HttpClient, private stripeService: StripeService) {}
-  readonly SERVER_DOMAIN = 'http://localhost:5000';
   latestBooking = new BehaviorSubject<any>(null);
 
   handleCheckout(booking: Booking) {
     // Create the session, redirect to the session url, subscribe to the result if error
     this.http
       .post(
-        this.SERVER_DOMAIN + '/api/payment/create-checkout-session',
+        environment.SERVER_DOMAIN + '/api/payment/create-checkout-session',
         booking
       )
       .pipe(
@@ -47,20 +46,22 @@ export class BookingService {
   }
 
   fetchLatestBooking() {
-    return this.http.get(this.SERVER_DOMAIN + '/api/auth/latestBooking').pipe(
-      catchError((err) => {
-        console.log('Handling error locally and rethrowing it...', err);
-        return throwError(() => err);
-      }),
-      tap((booking) => {
-        this.latestBooking.next(booking);
-      })
-    );
+    return this.http
+      .get(environment.SERVER_DOMAIN + '/api/auth/latestBooking')
+      .pipe(
+        catchError((err) => {
+          console.log('Handling error locally and rethrowing it...', err);
+          return throwError(() => err);
+        }),
+        tap((booking) => {
+          this.latestBooking.next(booking);
+        })
+      );
   }
 
   getOrderDetails(paymentID: string) {
     return this.http
-      .get(this.SERVER_DOMAIN + '/api/payment/booking/' + paymentID)
+      .get(environment.SERVER_DOMAIN + '/api/payment/booking/' + paymentID)
       .pipe(
         catchError((err) => {
           console.log('Handling error locally and rethrowing it...', err);

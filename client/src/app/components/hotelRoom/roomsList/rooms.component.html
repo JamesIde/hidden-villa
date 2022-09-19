@@ -1,14 +1,28 @@
 <div class="h-max">
-  <div *ngIf="isLoading" class="flex justify-center">
+  <div *ngIf="isLoading" class="flex justify-center h-[96vh]">
     <app-loading></app-loading>
   </div>
-  <div class="xl:w-3/4 md:w-full w-full mx-auto p-2 text-center text-md" *ngIf="!isLoading && !isError">
+  <div *ngIf="isError" class="flex justify-center h-[96vh]">
+    <p class="p-6 bg-red-500 text-white text-center h-max">
+      {{ error }}
+    </p>
+  </div>
+  <div
+    class="xl:w-3/4 md:w-full w-full mx-auto p-2 text-center text-md"
+    *ngIf="!isLoading && !isError"
+  >
     <div class="flex flex-row justify-center">
       <p class="font-bold pt-1">
-        {{bookingInfo.originalCheckIn}} - {{bookingInfo.originalCheckOut }}
+        {{ bookingInfo.originalCheckIn | date: "d/MM/YY" }} -
+        {{ bookingInfo.originalCheckOut | date: "d/MM/YY" }}
       </p>
       <label for="my-modal" class="ml-1 hover:cursor-pointer">
-        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="settings" label></mat-icon>
+        <mat-icon
+          aria-hidden="false"
+          aria-label="Example home icon"
+          fontIcon="settings"
+          label
+        ></mat-icon>
       </label>
       <input type="checkbox" id="my-modal" class="modal-toggle" />
       <div class="modal">
@@ -16,27 +30,52 @@
           <p class="font-bold text-lg">Change of mind?</p>
           <p>Select your new dates below!</p>
           <div class="flex flex-col">
-            <input type="date" id="start" name="trip-start" [(ngModel)]="checkIn" name="checkIn" class="mb-1">
-            <input type="date" id="start" name="trip-start" [(ngModel)]="checkOut" name="checkOut" class="mb-1">
-            <input type="number" name="NoGuests" id="NoGuests" [(ngModel)]="guests" class="mb-1" min="1">
+            <input
+              type="date"
+              id="start"
+              name="trip-start"
+              [(ngModel)]="checkIn"
+              name="checkIn"
+              class="mb-1"
+            />
+            <input
+              type="date"
+              id="start"
+              name="trip-start"
+              [(ngModel)]="checkOut"
+              name="checkOut"
+              class="mb-1"
+            />
+            <input
+              type="number"
+              name="NoGuests"
+              id="NoGuests"
+              [(ngModel)]="guests"
+              class="mb-1"
+              min="1"
+            />
           </div>
           <div class="modal-action">
-            <label for="my-modal" class="btn btn-primary" (click)="updateBooking()">Update</label>
+            <label
+              for="my-modal"
+              class="btn btn-primary"
+              (click)="updateBooking()"
+              >Update</label
+            >
             <label for="my-modal" class="btn">Close</label>
           </div>
         </div>
-
       </div>
     </div>
     <p>
       We found <span class="font-bold"> {{ rooms.length }} rooms </span> that
-      match your dates for <span class="font-bold"> {{bookingInfo.duration}}
+      match your dates for
+      <span class="font-bold">
+        {{ bookingInfo.duration }}
 
-        {{bookingInfo.duration > 1 ? "nights" : "night"}}
-
+        {{ bookingInfo.duration > 1 ? "nights" : "night" }}
       </span>
     </p>
-
   </div>
 
   <div *ngIf="!isLoading && !isError" class="h-max">
