@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "https://hidden-villa-1.web.app/",
+    origin: "https://hidden-villa-1.web.app",
     credentials: true,
   })
 );
