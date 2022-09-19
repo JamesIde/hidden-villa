@@ -9,7 +9,7 @@ import {
 } from '@angular/common/http';
 import { catchError, Observable, switchMap, throwError } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
-
+import { environment } from '../../../environments/environment';
 interface AccessResponse {
   ok: boolean;
   accessToken: string;
@@ -17,7 +17,7 @@ interface AccessResponse {
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  readonly REFRESH_URL = 'http://localhost:5000/api/auth/refreshAccessToken';
+  readonly REFRESH_URL = `${environment.SERVER_DOMAIN}/api/auth/refreshAccessToken`;
   isAccessValid = false;
 
   constructor(private http: HttpClient, private authService: AuthService) {}
@@ -32,6 +32,7 @@ export class AuthInterceptor implements HttpInterceptor {
         setHeaders: {
           authorization: `Bearer ${accessToken}`,
         },
+        withCredentials: true,
       });
       return next.handle(req).pipe(
         catchError((err: HttpErrorResponse) => {
@@ -50,7 +51,9 @@ export class AuthInterceptor implements HttpInterceptor {
                     request.clone({
                       setHeaders: {
                         Authorization: `Bearer ${res.accessToken}`,
+                        'Access-Control-Allow-Headers': 'authorization',
                       },
+                      withCredentials: true,
                     })
                   );
                 })

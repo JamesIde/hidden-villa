@@ -36,6 +36,7 @@ export class AuthService {
       .post<User>(environment.SERVER_DOMAIN + '/api/auth/login', strUser, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+          'Access-Control-Allow-Origin': '*',
         },
         withCredentials: true,
       })

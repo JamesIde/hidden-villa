@@ -17,7 +17,9 @@ app.use(cookieParser());
 app.use(
   cors({
     origin: "https://hidden-villa-1.web.app",
+    // origin: "http://localhost:4200",
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
 // Welcome route
