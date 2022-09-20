@@ -23,7 +23,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.userSubscription = this.authService.token.subscribe((token) => {
-      console.log('Received in header', token);
       this.isLogged = token ? true : false;
       this.name = JSON.parse(localStorage.getItem('name')!);
     });

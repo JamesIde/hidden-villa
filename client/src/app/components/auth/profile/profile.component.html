@@ -4,13 +4,13 @@
     <app-loading></app-loading>
   </div>
   <div class="xl:w-3/4 md:w-2/4 w-full mx-auto p-2 h-[90vh]" *ngIf="!isLoading">
-    <div class="xl:w-1/2  w-full mx-auto">
+    <div class="xl:w-1/2 w-full mx-auto">
       <p class="text-xl text-center font-bold">Recent Bookings</p>
       <table class="table-auto w-full mx-auto p-2">
         <thead class="text-left">
           <tr>
             <th>
-              Booking #
+              Order
             </th>
             <th>
               Check In
@@ -19,7 +19,7 @@
               Check Out
             </th>
             <th>
-              Total Cost
+              Total
             </th>
             <th>
 
@@ -45,8 +45,7 @@
               <label
                 class="modal-button bg-purple-500 p-2 mt-2 mb-3 w-full text-white rounded hover:bg-purple-800 duration-500 hover:cursor-pointer"
                 [routerLink]="['/profile/booking', booking.paymentID]">
-                View Order
-              </label>
+                View </label>
             </td>
           </tr>
           <input type="checkbox" id="my-modal" class="modal-toggle" />

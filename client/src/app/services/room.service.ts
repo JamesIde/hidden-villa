@@ -43,7 +43,7 @@ export class RoomService {
     };
     // Emit it & store
     this.bookingInfo.next(this.booking);
-    console.log(this.booking);
+    // console.log(this.booking);
     localStorage.setItem('booking', JSON.stringify(this.booking));
   }
 
@@ -57,7 +57,7 @@ export class RoomService {
       .post<HotelRoom[]>(`${environment.SERVER_DOMAIN}/api/hotels`, data)
       .pipe(
         catchError((err) => {
-          console.log('Handling error locally and rethrowing it...', err);
+          // console.log('Handling error locally and rethrowing it...', err);
           return throwError(() => err);
         }),
         tap((rooms) => {
@@ -70,7 +70,7 @@ export class RoomService {
       .get<HotelRoom>(`${environment.SERVER_DOMAIN}/api/hotels/${id}`)
       .pipe(
         catchError((err) => {
-          console.log('Handling error locally and rethrowing it...', err);
+          // console.log('Handling error locally and rethrowing it...', err);
           return throwError(() => err);
         }),
         tap((room) => this.selectedRoom.next(room))

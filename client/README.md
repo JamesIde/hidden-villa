@@ -1,3 +1,3 @@
-# Login and Register
+# HiddenVilla
 
-Login, register, protected routes, resolvers, http interceptors for cookies. Basically an auth solution
+The frontend, made with Angular. Please refer to the root readme for more information.

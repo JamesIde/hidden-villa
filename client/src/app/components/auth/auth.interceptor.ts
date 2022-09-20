@@ -38,14 +38,13 @@ export class AuthInterceptor implements HttpInterceptor {
         catchError((err: HttpErrorResponse) => {
           if (err.status === 403 || err.status == 401) {
             this.isAccessValid = true;
-            console.log('Access token is invalid, refreshing...');
+            console.log('refreshing...');
             return this.http
               .get<AccessResponse>(this.REFRESH_URL, {
                 withCredentials: true,
               })
               .pipe(
                 switchMap((res) => {
-                  console.log('NEW TOKEN ->', res.accessToken);
                   this.authService.setAccessToken(res.accessToken);
                   return next.handle(
                     request.clone({

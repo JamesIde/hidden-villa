@@ -36,14 +36,12 @@ export class RoomsComponent implements OnInit, OnDestroy {
           this.bookingInfo.originalCheckOut
         );
         this.guests = this.bookingInfo.NoGuests;
-        console.log(this.checkIn, this.checkOut, this.guests);
       }
     );
     // Access available rooms
     this.roomSubscription = this.roomService.getallRooms().subscribe(
       (rooms) => {
         this.rooms = rooms;
-        console.log('rooms', this.rooms);
         this.isLoading = false;
       },
       (error) => {

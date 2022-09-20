@@ -15,7 +15,6 @@ export class DatesComponent implements OnInit {
 
   handleSubmit() {
     this.roomService.storeBookingInformation(this.datePickerForm);
-    console.log(this.datePickerForm.value);
     this.router.navigate(['/rooms']);
   }
 

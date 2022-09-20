@@ -42,7 +42,6 @@ export class AuthService {
       })
       .pipe(
         catchError((err) => {
-          console.log('Handling error locally and rethrowing it...', err);
           return throwError(() => err);
         }),
         // Must transform the output into the correct type
@@ -88,7 +87,7 @@ export class AuthService {
       )
       .pipe(
         catchError((err) => {
-          console.log('Handling error locally and rethrowing it...', err);
+          // console.log('Handling error locally and rethrowing it...', err);
           return throwError(() => err);
         }),
         // Must transform the output into the correct type
@@ -132,12 +131,12 @@ export class AuthService {
       .get(environment.SERVER_DOMAIN + '/api/auth/profile', {})
       .pipe(
         catchError((err) => {
-          console.log('Handling error locally and rethrowing it...', err);
+          // console.log('Handling error locally and rethrowing it...', err);
           return throwError(() => err);
         }),
         tap((res: UserProfile) => {
           this.userProfile.next(res);
-          console.log('Tapped here in profile call ->', res);
+          // console.log('Tapped here in profile call ->', res);
         })
       );
   }
