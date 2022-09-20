@@ -23,4 +23,4 @@ b) Users can enter dates of their stay and the rooms are filtered based on exist
 
 c) Users can make payments through the Stripe API provided by ngx-stripe, a thin wrapper for Stripe Elements, a set of UI components based off Stripe.js. Custom webhooks defined on the serverside track orders by listening to \*/api/payment/create-checkout-session.
 
-No installation instructions included - this is a project purely for personal development and learning. This was my first full-stack application with Angular on the frontend. Services, observables, behaviour subjects, http-interceptors,
+No installation instructions included - this is a project purely for personal development and learning.
