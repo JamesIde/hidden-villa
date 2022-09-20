@@ -35,8 +35,6 @@ const createCheckoutSession = async (req: Request, res: Response) => {
     })
 
     // Formatting the dates
-    const checkInDate = new Date(checkIn).toLocaleString("en-AU")
-    const checkOutDate = new Date(checkOut).toLocaleString("en-AU")
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
@@ -46,7 +44,7 @@ const createCheckoutSession = async (req: Request, res: Response) => {
             currency: "aud",
             product_data: {
               name: roomName,
-              description: `Check In ${checkInDate} - Check Out ${checkOutDate}`,
+              description: `Stay at ${roomName} for ${duration} nights between ${checkIn} and ${checkOut}`,
             },
             unit_amount: totalCost * 100,
           },
