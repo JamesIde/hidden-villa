@@ -1,9 +1,14 @@
 import express from "express"
-import userController from "./hotelController"
+import {
+  getHotelRooms,
+  getHotelRoom,
+  addHotelRoom,
+  deleteHotelRoom,
+} from "./hotelController"
 const router = express.Router()
 
-router.post("/", userController.getHotelRooms)
-router.get("/:id", userController.getHotelRoom)
-router.post("/", userController.addHotelRoom)
-router.delete("/:id", userController.deleteHotelRoom)
+router.post("/", getHotelRooms)
+router.get("/:id", getHotelRoom)
+router.post("/", addHotelRoom)
+router.delete("/:id", deleteHotelRoom)
 export = router

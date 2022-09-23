@@ -1,8 +1,14 @@
 import express from "express"
-import bookingController from "./bookingController"
+
+import {
+  createCheckoutSession,
+  paymentWebhook,
+  getBooking,
+} from "./bookingController"
+
 const router = express.Router()
 
-router.post("/create-checkout-session", bookingController.createCheckoutSession)
-router.post("/webhook", bookingController.paymentWebhook)
-router.get("/booking/:payment", bookingController.getBooking)
+router.post("/create-checkout-session", createCheckoutSession)
+router.post("/webhook", paymentWebhook)
+router.get("/booking/:payment", getBooking)
 export = router

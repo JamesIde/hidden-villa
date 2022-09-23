@@ -1,12 +1,19 @@
 import express from "express"
-import authController from "./authController"
+import {
+  register,
+  login,
+  refreshAccessToken,
+  revokeRefreshToken,
+  getLoggedInUser,
+  getLatestBooking,
+} from "./authController"
 import { isAuthenticated } from "../utilities/isAuth"
 const router = express.Router()
 
-router.post("/register", authController.register)
-router.post("/login", authController.login)
-router.get("/refreshAccessToken", authController.refreshAccessToken)
-router.get("/revokeRefreshToken", authController.revokeRefreshToken)
-router.get("/profile", isAuthenticated, authController.getLoggedInUser)
-router.get("/latestBooking", isAuthenticated, authController.getLatestBooking)
+router.post("/register", register)
+router.post("/login", login)
+router.get("/refreshAccessToken", refreshAccessToken)
+router.get("/revokeRefreshToken", revokeRefreshToken)
+router.get("/profile", isAuthenticated, getLoggedInUser)
+router.get("/latestBooking", isAuthenticated, getLatestBooking)
 export = router
